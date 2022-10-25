@@ -1,5 +1,5 @@
 <?php
-class DeleteUserController
+class DeleteLessonController
 {
   public function __construct()
   {

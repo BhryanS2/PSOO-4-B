@@ -1,5 +1,5 @@
 <?php
-class GetAllController
+class GetAllQuestionsController
 {
   public function __construct()
   {

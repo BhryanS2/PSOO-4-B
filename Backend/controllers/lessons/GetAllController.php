@@ -1,5 +1,5 @@
 <?php
-class GetAllController
+class GetAllLessonsController
 {
   public function __construct()
   {

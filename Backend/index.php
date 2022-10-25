@@ -4,6 +4,17 @@ require "controllers/user/SignupController.php";
 require "controllers/user/DeleteUserController.php";
 require "controllers/user/GetAllController.php";
 
+require "controllers/lessons/GetAllController.php";
+require "controllers/lessons/GetController.php";
+require "controllers/lessons/RegisterController.php";
+require "controllers/lessons/DeleteController.php";
+
+require "controllers/questions/DeleteQuestionController.php";
+require "controllers/questions/GetAllController.php";
+require "controllers/questions/getQuestionController.php";
+require "controllers/questions/RegisterQuestionController.php";
+
+
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 $uri = explode("?", $uri)[0];
@@ -24,6 +35,24 @@ $routes = [
   "getall" => [
     "GET" => "GetAllController",
   ],
+  "lesson/getall" => [
+    "GET" => "GetAllLessonsController",
+  ],
+  "lesson" => [
+    "GET" => "GetLessonController",
+    "DELETE" => "DeleteController",
+    "POST" => "RegisterController",
+  ],
+  "question" => [
+    "DELETE" => "DeleteQuestionController",
+    "GET" => "getQuestionController",
+    "POST" => "RegisterQuestionController",
+  ],
+  "question/getall" => [
+    "GET" => "GetAllQuestionsController",
+  ],
+
+
 ];
 
 

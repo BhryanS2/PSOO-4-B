@@ -7,14 +7,14 @@ class RegisterQuestionService
     $this->conn = $conn;
   }
 
-  public function execute($content, $userId, $categoryId, $tags)
+  public function execute($content, $userId, $lessonId, $tags)
   {
     $reponse = array();
-    $sql = "INSERT INTO questions (content, userId, categoryId) VALUES (:content, :userId, :categoryId)";
+    $sql = "INSERT INTO questions (content, userId, lessonId) VALUES (:content, :userId, :lessonId)";
     $stmt = $this->conn->prepare($sql);
     $stmt->bindParam(":content", $content);
     $stmt->bindParam(":userId", $userId);
-    $stmt->bindParam(":categoryId", $categoryId);
+    $stmt->bindParam(":lessonId", $lessonId);
     $stmt->execute();
     $reponse["status"] = false;
     $reponse["message"] = "Register failed";
@@ -25,7 +25,7 @@ class RegisterQuestionService
         "id" => $this->conn->lastInsertId(),
         "content" => $content,
         "userId" => $userId,
-        "categoryId" => $categoryId,
+        "lessonId" => $lessonId,
         "tags" => $tags
       );
     }

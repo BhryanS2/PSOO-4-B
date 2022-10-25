@@ -11,9 +11,9 @@ class RegisterQuestionController
 		$data = json_decode($json, true);
 		$content = isset($data['content']) ? $data['content'] : null;
 		$userId = isset($data['userId']) ? $data['userId'] : null;
-		$categoryId = isset($data['categoryId']) ? $data['categoryId'] : null;
+		$lessonId = isset($data['lessonId']) ? $data['lessonId'] : null;
 		$tags = isset($data['tags']) ? $data['tags'] : null;
-		if ($content === null || $userId === null || $categoryId === null || $tags === null) {
+		if ($content === null || $userId === null || $lessonId === null || $tags === null) {
 			$fieldsRequired = array();
 			if ($content == null) {
 				array_push($fieldsRequired, "content");
@@ -21,8 +21,8 @@ class RegisterQuestionController
 			if ($userId == null) {
 				array_push($fieldsRequired, "userId");
 			}
-			if ($categoryId == null) {
-				array_push($fieldsRequired, "categoryId");
+			if ($lessonId == null) {
+				array_push($fieldsRequired, "lessonId");
 			}
 			if ($tags == null) {
 				array_push($fieldsRequired, "tags");
@@ -32,7 +32,7 @@ class RegisterQuestionController
 			return;
 		}
 		$service = new RegisterQuestionService();
-		$result = $service->execute($content, $userId, $categoryId, $tags);
+		$result = $service->execute($content, $userId, $lessonId, $tags);
 		return;
 	}
 }

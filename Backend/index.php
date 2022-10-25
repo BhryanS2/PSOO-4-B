@@ -1,6 +1,4 @@
 <?php
-// server controller, get and post data
-
 require "controllers/user/LoginController.php";
 require "controllers/user/SignupController.php";
 require "controllers/user/DeleteUserController.php";

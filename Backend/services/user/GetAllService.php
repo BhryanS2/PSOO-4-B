@@ -9,7 +9,7 @@ class GetAllService
   public function execute()
   {
     $reponse = array();
-    $sql = "SELECT * FROM users";
+    $sql = "SELECT id, name, email FROM users";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();

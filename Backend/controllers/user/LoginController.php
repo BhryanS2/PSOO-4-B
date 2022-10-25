@@ -7,8 +7,11 @@ class LoginController
 	}
 	public function handle()
 	{
-		$email = isset($_POST['email']) ? $_POST['email'] : null;
-		$password = isset($_POST['password']) ? $_POST['password'] : null;
+
+		$json = file_get_contents('php://input');
+		$data = json_decode($json, true);
+		$email = isset($data['email']) ? $data['email'] : null;
+		$password = isset($data['password']) ? $data['password'] : null;
 
 		if ($email === null || $password === null) {
 			$fieldsRequired = array();

@@ -22,6 +22,7 @@ class SingupService
   public function execute($email, $password, $name)
   {
     if ($this->existsUser($email)) {
+      http_response_code(409);
       return array("status" => false, "message" => "User already exists");
     }
     $hash = md5($password);

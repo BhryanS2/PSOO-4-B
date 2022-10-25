@@ -26,17 +26,25 @@ class LoginService
     $result = $stmt->fetchAll();
     // echo json_encode($result);
     if (count($result) > 0) {
-      $userPassword = $result[0]["password"];
+      $user = $result[0];
+      $userPassword = $user["password"];
       if ($this->verifyPassword($userPassword, $password)) {
         $reponse["status"] = true;
         $reponse["message"] = "Login success";
-        $reponse["data"] = $result[0];
+        $userNoPassword = [
+          "id" => $user["id"],
+          "name" => $user["name"],
+          "email" => $user["email"]
+        ];
+        $reponse["data"] = $userNoPassword;
         return $reponse;
       }
       $response["status"] = false;
       $response["message"] = "Login failed";
+      http_response_code(400);
       return $response;
     }
+    http_response_code(400);
     $reponse["status"] = false;
     $reponse["message"] = "Login failed";
     return $reponse;

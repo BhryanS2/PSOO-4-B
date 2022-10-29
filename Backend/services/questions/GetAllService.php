@@ -10,7 +10,16 @@ class GetAllQuestionsService
   public function execute($filters = [])
   {
     $response = array();
-    $sql = "SELECT questions.id, questions.content, questions.lesson_id, questions.user_id, questions.created_at, questions.updated_at, alternatives.content as alternative_content, alternatives.isCorrect FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
+    $sql = "SELECT questions.id,
+    questions.content,
+    questions.lesson_id,
+    questions.user_id,
+    questions.created_at,
+    questions.updated_at,
+    alternatives.content as alternative_content,
+    alternatives.isCorrect,
+    alternatives.id as alternative_id
+    FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -30,7 +39,8 @@ class GetAllQuestionsService
       }
       array_push($questions[$questionId]['alternatives'], array(
         "content" => $row['alternative_content'],
-        "isCorrect" => $row['isCorrect']
+        "isCorrect" => $row['isCorrect'],
+        "id" => $row['alternative_id']
       ));
     }
     $questionsValues = array_values($questions);

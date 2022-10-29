@@ -14,6 +14,10 @@ require "controllers/questions/GetAllController.php";
 require "controllers/questions/getQuestionController.php";
 require "controllers/questions/RegisterQuestionController.php";
 
+require "controllers/userAnswer/GetAllController.php";
+require "controllers/userAnswer/GetController.php";
+require "controllers/userAnswer/RegisterController.php";
+
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
@@ -55,7 +59,13 @@ $routes = [
   "question/getall" => [
     "GET" => "GetAllQuestionsController",
   ],
-
+  "answer" => [
+    "POST" => "SendAnserController",
+    "GET" => "GetAnserController",
+  ],
+  "answer/getall" => [
+    "GET" => "GetAllAnswersController",
+  ],
 
 ];
 

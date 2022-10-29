@@ -39,3 +39,13 @@ create table if not exists alternatives (
   created_at timestamp default current_timestamp,
   updated_at timestamp default current_timestamp on update current_timestamp
 );
+
+create table if not exists answers (
+  id int auto_increment primary key,
+  user_id int not null,
+  question_id int not null,
+  alternative_id int not null,
+  correct boolean not null,
+  created_at timestamp default current_timestamp,
+  updated_at timestamp default current_timestamp on update current_timestamp
+);

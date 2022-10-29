@@ -15,6 +15,7 @@ class GetLessonController
 		}
 		$service = new GetLessonService();
 		$result = $service->execute($id);
+		echo json_encode($result);
 		return $result;
 	}
 }

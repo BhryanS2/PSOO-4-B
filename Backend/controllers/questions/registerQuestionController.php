@@ -12,8 +12,9 @@ class RegisterQuestionController
 		$content = isset($data['content']) ? $data['content'] : null;
 		$userId = isset($data['userId']) ? $data['userId'] : null;
 		$lessonId = isset($data['lessonId']) ? $data['lessonId'] : null;
-		$tags = isset($data['tags']) ? $data['tags'] : null;
-		if ($content === null || $userId === null || $lessonId === null || $tags === null) {
+		$alternatives = isset($data['alternatives']) ? $data['alternatives'] : null;
+
+		if ($content === null || $userId === null || $lessonId === null || $alternatives === null) {
 			$fieldsRequired = array();
 			if ($content == null) {
 				array_push($fieldsRequired, "content");
@@ -24,15 +25,16 @@ class RegisterQuestionController
 			if ($lessonId == null) {
 				array_push($fieldsRequired, "lessonId");
 			}
-			if ($tags == null) {
-				array_push($fieldsRequired, "tags");
+			if ($alternatives == null) {
+				array_push($fieldsRequired, "alternatives");
 			}
 			http_response_code(400);
 			echo json_encode(array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired));
 			return;
 		}
 		$service = new RegisterQuestionService();
-		$result = $service->execute($content, $userId, $lessonId, $tags);
+		$result = $service->execute($content, $userId, $lessonId, $alternatives);
+		echo json_encode($result);
 		return;
 	}
 }

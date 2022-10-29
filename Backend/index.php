@@ -21,6 +21,7 @@ $uri = explode("?", $uri)[0];
 $uri = explode("/", $uri);
 $uri = array_filter($uri);
 $uri = array_values($uri);
+$uri = implode("/", $uri);
 
 $routes = [
   "login" => [
@@ -30,7 +31,7 @@ $routes = [
     "POST" => "SignupController",
   ],
   "delete" => [
-    "POST" => "DeleteUserController",
+    "DELETE" => "DeleteUserController",
   ],
   "getall" => [
     "GET" => "GetAllController",
@@ -39,9 +40,12 @@ $routes = [
     "GET" => "GetAllLessonsController",
   ],
   "lesson" => [
+    "/getall" => [
+      "GET" => "GetAllLessonsController",
+    ],
     "GET" => "GetLessonController",
-    "DELETE" => "DeleteController",
-    "POST" => "RegisterController",
+    "DELETE" => "DeleteLessonController",
+    "POST" => "RegisterLessonController",
   ],
   "question" => [
     "DELETE" => "DeleteQuestionController",
@@ -71,11 +75,7 @@ function return405($method = "GET")
 function main()
 {
   global $method, $uri, $routes;
-  if (count($uri) == 0) {
-    return404();
-    return;
-  }
-  $controller = $uri[0];
+  $controller = $uri;
   if (!array_key_exists($controller, $routes)) {
     return404();
     return;

@@ -3,7 +3,7 @@ class GetQuestionController
 {
 	public function __construct()
 	{
-		require "services/questions/GetQuestionService.php";
+		require "services/questions/getQuestion.php";
 	}
 	public function handle()
 	{

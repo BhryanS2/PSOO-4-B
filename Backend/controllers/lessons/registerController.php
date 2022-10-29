@@ -30,6 +30,7 @@ class RegisterLessonController
 		}
 		$service = new RegisterLessonService();
 		$result = $service->execute($name, $description, $userId);
+		echo json_encode($result);
 		return $result;
 	}
 }

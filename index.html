@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bimestral</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./Frontend/css/styles.css" />
+    <script src="./Frontend/js/api.js"></script>
+  </head>
+  <body>
+    <!-- <div class="" id="login">
+      <div class="">
+        <form action="#">
+          <h2>Entre!</h2>
+          <p>Digite seus dados para começar! ;)</p>
+          <input type="email" placeholder="E-mail" id="email" />
+          <input type="password" placeholder="Senha" id="password" />
+
+          <button type="submit">
+            Entrar <img src="./Frontend/img/play.png" />
+          </button>
+          <button type="button" id="register" onclick="openRegisterModal()">
+            Cadastrar <img src="./Frontend/img/play-green.png" width="11px" />
+          </button>
+          <a
+            style="
+              color: #505050;
+              font-size: 14px;
+              margin-top: 12px;
+              font-weight: 600;
+            "
+            >Recuperar Senha</a
+          >
+        </form>
+      </div>
+    </div>
+
+    <div class="" id="register-modal">
+      <div class="">
+        <form action="#">
+          <h2>Cadastre-se!</h2>
+          <p>Digite seus dados para começar! ;)</p>
+          <input type="text" placeholder="Nome" id="name" />
+          <input type="email" placeholder="E-mail" id="email" />
+          <input type="password" placeholder="Senha" id="password" />
+          <button type="submit">
+            Cadastrar <img src="./Frontend/img/play.png" />
+          </button>
+        </form>
+      </div>
+    </div> -->
+    <button onclick="fn()">Enviar login</button>
+
+    <script src="./Frontend/js/script.js"></script>
+    <script>
+      const forms = document.querySelectorAll(".modal-background form");
+      forms.forEach((form) => {
+        form.addEventListener("submit", (e) => handleSubimit(e, form));
+      });
+      async function handleSubimit(e, form) {
+        e.preventDefault();
+        const inputs = form.querySelectorAll("input");
+        const data = {};
+        inputs.forEach((input) => {
+          data[input.id] = input.value;
+        });
+        const api = new API();
+        console.log(data);
+        if (data["name"]) {
+          const res = await api.register(data);
+          if (!res.status) {
+            alert(res.message);
+          }
+          return;
+        }
+        const res = await api.login(data);
+
+        if (!res.status) {
+          alert(res.message);
+        }
+      }
+      async function fn() {
+        const api = new API();
+        const res = await api.login({
+          email: "bhryanstepenhen@gmail.com",
+          password: "Papagaio1@",
+        });
+        if (!res.status) {
+          alert(res.message);
+          return;
+        }
+        window.location.href = "./Frontend/pages/home.html";
+      }
+      fn();
+    </script>
+  </body>
+</html>

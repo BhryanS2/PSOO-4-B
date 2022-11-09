@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bimestral</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="center">
+        <div>
+          <img src="img/logo-12.png" />
+          <b>bimestral</b>
+        </div>
+        <div>
+          <a class="link" href="index.html#first">Home</a>
+          <a class="link" href="index.html#second">Quem Somos</a>
+          <a class="link" href="tel:+553597774738">Contato</a>
+          <button onclick="openModal()">
+            SAIR DA CONTA
+            <img src="img/play.png" />
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="questions-create">
+      <h2>Cadastrar questões</h2>
+      <h3>Oi, administrador! Belezinha? Cadastre novas questões abaixo. ;)</h3>
+
+      <table id="customers">
+        <tr>
+          <th>Matéria</th>
+          <th>Dificuldade</th>
+          <th>Texto</th>
+          <th>Resposta</th>
+          <th></th>
+          <th></th>
+        </tr>
+
+        <tr>
+          <td>Física</td>
+          <td>Fácil</td>
+          <td>...</td>
+          <td>A</td>
+          <td>
+            <a>
+              <i class="material-icons"> delete </i>
+            </a>
+          </td>
+          <td>
+            <a>
+              <i class="material-icons"> edit </i>
+            </a>
+          </td>
+        </tr>
+      </table>
+
+      <button type="button">Cadastrar questão <img src="img/play.png" width="11px" /></button>
+    </section>
+
+    <script src="js/questions.js"></script>
+  </body>
+</html>

@@ -1,12 +1,140 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-</head>
-<body>
-  
-</body>
+<html>
+  <head>
+    <title>Bimestral</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="./js/api.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="center">
+        <div>
+          <img src="img/logo-12.png" width="18px" />
+          <b>bimestral</b>
+        </div>
+        <div>
+          <a class="link" href="#first">Home</a>
+          <a class="link" href="#second">Quem Somos</a>
+          <a class="link" href="tel:+553597774738">Contato</a>
+          <button onclick="openModal('login')">
+            FAZER QUESTÕES
+            <img src="img/play.png" />
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="first-section" id="first">
+      <div class="center">
+        <div class="first-info">
+          <h2>Bimestral IF</h2>
+          <h3>
+            Treine para a bimestral com a gente: são inúmeras questões de todas
+            as matérias para você arrasar na prova!
+          </h3>
+          <button onclick="openModal('login')">
+            TREINAR AGORA
+            <img src="img/play.png" />
+          </button>
+          <a href="#second"
+            ><img src="img/down-arrow.png" class="down-arrow"
+          /></a>
+        </div>
+
+        <img src="img/first-image.png" class="section-img" />
+      </div>
+    </section>
+
+    <section class="first-section section-inverse" id="second">
+      <div class="center">
+        <div>
+          <h2>Quem somos</h2>
+          <h3>
+            Somos uma plataforma nascida em Outubro de 2022, para ajudar
+            estudantes do IF de Muzambinho a treinar para a temida bimestral.
+          </h3>
+          <button onclick="openModal('login')">
+            TREINAR AGORA
+            <img src="img/play.png" />
+          </button>
+          <a href="#first"><img src="img/top-arrow.png" class="top-arrow" /></a>
+        </div>
+
+        <img src="img/second-image.png" class="section-img" />
+      </div>
+    </section>
+
+    <footer>
+      <p>Feito com 💚 por Luísa Manoela Romão Salles</p>
+    </footer>
+
+    <div class="modal-background" id="login">
+      <div class="modal">
+        <form action="#">
+          <h2>Entre!</h2>
+          <p>Digite seus dados para começar! ;)</p>
+          <input type="email" placeholder="E-mail" id="email" />
+          <input type="password" placeholder="Senha" id="password" />
+
+          <button type="submit">Entrar <img src="img/play.png" /></button>
+          <button type="button" id="register" onclick="openRegisterModal()">
+            Cadastrar <img src="img/play-green.png" width="11px" />
+          </button>
+          <a
+            style="
+              color: #505050;
+              font-size: 14px;
+              margin-top: 12px;
+              font-weight: 600;
+            "
+            >Recuperar Senha</a
+          >
+        </form>
+      </div>
+    </div>
+
+    <div class="modal-background" id="register-modal">
+      <div class="modal">
+        <form action="#">
+          <h2>Cadastre-se!</h2>
+          <p>Digite seus dados para começar! ;)</p>
+          <input type="text" placeholder="Nome" id="name" />
+          <input type="email" placeholder="E-mail" id="email" />
+          <input type="password" placeholder="Senha" id="password" />
+          <button type="submit">Cadastrar <img src="img/play.png" /></button>
+        </form>
+      </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+      const forms = document.querySelectorAll(".modal-background form");
+      forms.forEach((form) => {
+        form.addEventListener("submit", (e) => handleSubimit(e, form));
+      });
+      function handleSubimit(e, form) {
+        e.preventDefault();
+        const inputs = form.querySelectorAll("input");
+        const data = {};
+        inputs.forEach((input) => {
+          data[input.id] = input.value;
+        });
+        const api = new API();
+        if (data["name"]) {
+          api.register(data);
+          return;
+        }
+        api.login(data);
+      }
+    </script>
+  </body>
 </html>

@@ -1,22 +1,17 @@
 <?php
-require "controllers/user/LoginController.php";
-require "controllers/user/SignupController.php";
-require "controllers/user/DeleteUserController.php";
-require "controllers/user/GetAllController.php";
+require "controllers/alunos/DeleteUserController.php";
+require "controllers/alunos/GetAllController.php";
+require "controllers/alunos/RegisterController.php";
 
-require "controllers/lessons/GetAllController.php";
-require "controllers/lessons/GetController.php";
-require "controllers/lessons/RegisterController.php";
-require "controllers/lessons/DeleteController.php";
+require "controllers/bloco/DeleteController.php";
+require "controllers/bloco/GetAllController.php";
+require "controllers/bloco/getController.php";
+require "controllers/bloco/registerController.php";
 
-require "controllers/questions/DeleteQuestionController.php";
-require "controllers/questions/GetAllController.php";
-require "controllers/questions/getQuestionController.php";
-require "controllers/questions/RegisterQuestionController.php";
-
-require "controllers/userAnswer/GetAllController.php";
-require "controllers/userAnswer/GetController.php";
-require "controllers/userAnswer/RegisterController.php";
+require "controllers/quartos/DeleteQuartoController.php";
+require "controllers/quartos/GetAllController.php";
+require "controllers/quartos/getQuartosController.php";
+require "controllers/quartos/registerQuartoController.php";
 
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -28,45 +23,29 @@ $uri = array_values($uri);
 $uri = implode("/", $uri);
 
 $routes = [
-  "login" => [
-    "POST" => "LoginController",
+  "alunos" => [
+    "GET" => "GetAllController"
   ],
-  "signup" => [
-    "POST" => "SignupController",
+  "aluno" => [
+    "POST" => "RegisterAlunoController",
+    "DELETE" => "DeleteAlunoController"
   ],
-  "delete" => [
-    "DELETE" => "DeleteUserController",
+  "blocos" => [
+    "GET" => "GetAllController"
   ],
-  "getall" => [
-    "GET" => "GetAllController",
+  "bloco" => [
+    "GET" => "GetAllBlocoController",
+    "POST" => "RegisterBlocoController",
+    "DELETE" => "DeleteBlocoController"
   ],
-  "lesson/getall" => [
-    "GET" => "GetAllLessonsController",
+  "quartos" => [
+    "GET" => "GetAllQuartosController"
   ],
-  "lesson" => [
-    "/getall" => [
-      "GET" => "GetAllLessonsController",
-    ],
-    "GET" => "GetLessonController",
-    "DELETE" => "DeleteLessonController",
-    "POST" => "RegisterLessonController",
-  ],
-  "question" => [
-    "DELETE" => "DeleteQuestionController",
-    "GET" => "getQuestionController",
-    "POST" => "RegisterQuestionController",
-  ],
-  "question/getall" => [
-    "GET" => "GetAllQuestionsController",
-  ],
-  "answer" => [
-    "POST" => "SendAnserController",
-    "GET" => "GetAnserController",
-  ],
-  "answer/getall" => [
-    "GET" => "GetAllAnswersController",
-  ],
-
+  "quarto" => [
+    "GET" => "GetQuartoController",
+    "POST" => "RegisterQuartoController",
+    "DELETE" => "DeleteQuartoController"
+  ]
 ];
 
 

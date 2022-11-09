@@ -1,51 +1,35 @@
-drop database if exists `PSOO`;
+drop database if exists `PSOO_alojamento`;
 
-create database if not exists `PSOO`;
+create database if not exists `PSOO_alojamento`;
 
-use `PSOO`;
+use `PSOO_alojamento`;
 
-create table if not exists users (
+create table blocos (
+  id int not null auto_increment,
+  name varchar(255) not null,
+  pisos int not null,
+  quartos int not null,
+  primary key (id)
+);
+
+create table quartos (
+  id int not null auto_increment,
+  name varchar(255) not null,
+  leitos int not null,
+  piso int not null,
+  blocoId int not null,
+  primary key (id),
+  foreign key (blocoId) references blocos(id)
+);
+
+create table if not exists alunos (
   id int auto_increment primary key,
   name varchar(255) not null,
-  email varchar(255) not null,
-  password varchar(255) not null,
+  leito int not null,
+  blocoId int not null,
+  quartoId int not null,
   created_at timestamp default current_timestamp,
-  updated_at timestamp default current_timestamp on update current_timestamp
-);
-
-create table if not exists questions (
-  id int auto_increment primary key,
-  content text not null,
-  user_id int not null,
-  lesson_id int not null,
-  created_at timestamp default current_timestamp,
-  updated_at timestamp default current_timestamp on update current_timestamp
-);
-
-create table if not exists lesson (
-  id int auto_increment primary key,
-  name varchar(255) not null,
-  description text not null,
-  user_id int not null,
-  created_at timestamp default current_timestamp,
-  updated_at timestamp default current_timestamp on update current_timestamp
-);
-
-create table if not exists alternatives (
-  id int auto_increment primary key,
-  content text not null,
-  question_id int not null,
-  isCorrect boolean not null,
-  created_at timestamp default current_timestamp,
-  updated_at timestamp default current_timestamp on update current_timestamp
-);
-
-create table if not exists answers (
-  id int auto_increment primary key,
-  user_id int not null,
-  question_id int not null,
-  alternative_id int not null,
-  correct boolean not null,
-  created_at timestamp default current_timestamp,
-  updated_at timestamp default current_timestamp on update current_timestamp
+  updated_at timestamp default current_timestamp on update current_timestamp,
+  foreign key (blocoId) references blocos(id),
+  foreign key (quartoId) references quartos(id)
 );

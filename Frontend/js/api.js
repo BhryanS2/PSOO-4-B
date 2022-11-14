@@ -1,6 +1,6 @@
 class API {
   constructor() {
-    this.url = "../../Backend";
+    this.url = "http://localhost:8000";
     this.user = {};
     this.routes = {
       login: {

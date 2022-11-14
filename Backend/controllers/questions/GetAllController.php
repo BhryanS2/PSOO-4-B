@@ -7,7 +7,12 @@ class GetAllQuestionsController
   }
   public function handle()
   {
-    $filtersAccepted = ["id", "lesson", "dificulty", "type", "content", "answer", "created_at", "updated_at"];
+    $filtersAccepted = [
+      "id", "content",
+      "content",
+      "lessonId",
+      "userId"
+    ];
     $filters = array();
     foreach ($filtersAccepted as $filter) {
       if (isset($_GET[$filter])) {

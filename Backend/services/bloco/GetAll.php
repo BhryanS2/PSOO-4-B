@@ -1,25 +1,27 @@
 <?php
 class GetAllBlocosService
 {
+  private Database $conn;
+  private Response $response;
+
   public function __construct()
   {
-    require "connection.php";
-    $this->conn = $conn;
+    require_once "connection.php";
+    require_once "utils/responsePattern.php";
+    $this->conn = new Database();
+    $this->response = new Response(false, "Get all blocos failed");
   }
+
   public function execute()
   {
-    $reponse = array();
     $sql = "SELECT * FROM blocos";
-    $stmt = $this->conn->prepare($sql);
-    $stmt->execute();
-    $result = $stmt->fetchAll();
-    $reponse["status"] = false;
-    $reponse["message"] = "Get all blocos failed";
+    $result = $this->conn->select($sql);
+
+    $this->response->setSqlError($this->conn->getErrorInfo());
+
     if (count($result) > 0) {
-      $reponse["status"] = true;
-      $reponse["message"] = "Get all blocos success";
-      $reponse["data"] = $result;
+      $this->response->setAll(true, "Get all blocos success", $result);
     }
-    return $reponse;
+    return $this->response->getResponse();
   }
 }

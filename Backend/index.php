@@ -13,6 +13,7 @@ require "controllers/quartos/GetAllController.php";
 require "controllers/quartos/getQuartosController.php";
 require "controllers/quartos/registerQuartoController.php";
 
+require "controllers/getAll.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
@@ -31,10 +32,10 @@ $routes = [
     "DELETE" => "DeleteAlunoController"
   ],
   "blocos" => [
-    "GET" => "GetAllController"
+    "GET" => "GetAllBlocosController"
   ],
   "bloco" => [
-    "GET" => "GetAllBlocoController",
+    "GET" => "GetBlocoController",
     "POST" => "RegisterBlocoController",
     "DELETE" => "DeleteBlocoController"
   ],
@@ -45,6 +46,9 @@ $routes = [
     "GET" => "GetQuartoController",
     "POST" => "RegisterQuartoController",
     "DELETE" => "DeleteQuartoController"
+  ],
+  "getInfos" => [
+    "GET" => "GetAllInfosController"
   ]
 ];
 

@@ -1,27 +1,31 @@
 <?php
 class GetQuartoService
 {
+
+  private Database $conn;
+  private Response $response;
+
   public function __construct()
   {
-    require "connection.php";
-    $this->conn = $conn;
+    require_once "connection.php";
+    require_once "utils/responsePattern.php";
+    $this->conn = new Database();
+    $this->response = new Response(false, "Get quarto failed");
   }
   public function execute($id)
   {
-    $reponse = array();
     $sql = "SELECT * FROM quartos WHERE id = :id";
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bindParam(":id", $id);
-    $stmt->execute();
-    $result = $stmt->fetch();
-    $reponse["status"] = false;
-    $reponse["message"] = "Get quarto failed";
+    $params = array(
+      ":id" => $id
+    );
+    $result = $this->conn->select($sql, $params);
+
+    $this->response->setSqlError($this->conn->getErrorInfo());
+
     if ($result) {
-      $reponse["status"] = true;
-      $reponse["message"] = "Get quarto success";
-      $reponse["data"] = $result;
+      $this->response->setAll(true, "Get quarto success", $result);
     }
 
-    return $reponse;
+    return $this->response->getResponse();
   }
 }

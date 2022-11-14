@@ -1,26 +1,31 @@
 <?php
 class GetBlocoService
 {
+
+  private Database $conn;
+  private Response $response;
+
   public function __construct()
   {
-    require "connection.php";
-    $this->conn = $conn;
+    require_once "connection.php";
+    require_once "utils/responsePattern.php";
+    $this->conn = new Database();
+    $this->response = new Response(false, "Get bloco failed");
   }
+
   public function execute($id)
   {
-    $reponse = array();
     $sql = "SELECT * FROM blocos WHERE id = :id";
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bindParam(":id", $id);
-    $stmt->execute();
-    $result = $stmt->fetch();
-    $reponse["status"] = false;
-    $reponse["message"] = "Get bloco failed";
+    $params = array(
+      ":id" => $id
+    );
+    $result = $this->conn->select($sql, $params);
+    $this->response->setSqlError($this->conn->getErrorInfo());
+
     if ($result) {
-      $reponse["status"] = true;
-      $reponse["message"] = "Get bloco success";
-      $reponse["data"] = $result;
+      $this->response->setAll(true, "Get bloco success", $result);
     }
-    return $reponse;
+
+    return $this->response->getResponse();
   }
 }

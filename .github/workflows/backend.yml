@@ -1,0 +1,25 @@
+
+name: Subimit files in infinityfree
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: send files with ftp
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
+        with:
+          server: ftpupload.net
+          username: ${{ secrets.username }}
+          password: ${{ secrets.password }}
+          local-dir: ./backend/
+          server-dir: /htdocs/
+          dangerous-clean-slate: false

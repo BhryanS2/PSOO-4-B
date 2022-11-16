@@ -11,12 +11,22 @@ $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 class Database
 {
   public PDO $conn;
+  private function serverIsLocalhost()
+  {
+    return $_SERVER['SERVER_NAME'] === 'localhost';
+  }
   public function __construct(
     string $server = "localhost",
     string $user = "root",
     string $password = "",
     string $dbName = "PSOO_alojamento"
   ) {
+    if (!$this->serverIsLocalhost()) {
+      $server = "sql204.epizy.com";
+      $user = "epiz_33012967";
+      $password = "jfpTccmh79nO9";
+      $dbName = "epiz_33012967_alojamento";
+    }
     $this->conn = new PDO("mysql:host=$server;dbname=$dbName", $user, $password);
     $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);

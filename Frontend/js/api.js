@@ -1,53 +1,64 @@
-class API {
+export class API {
   constructor() {
     this.url = "http://localhost:8000";
     this.user = {};
     this.routes = {
       login: {
         method: "POST",
-        route: `${this.url}login`,
+        route: `${this.url}/login`,
       },
       register: {
         method: "POST",
-        route: `${this.url}signup`,
+        route: `${this.url}/signup`,
       },
       delete: {
         method: "POST",
-        route: `${this.url}delete`,
+        route: `${this.url}/delete`,
       },
       getAll: {
         method: "GET",
-        route: `${this.url}getall`,
+        route: `${this.url}/getall`,
       },
       question: {
-        method: "POST" | "GET" | "DELETE",
-        route: `${this.url}question`,
+        method: {
+          // "POST" | "GET" | "DELETE"
+          post: "POST",
+          get: "GET",
+          delete: "DELETE",
+        },
+        route: `${this.url}/question`,
       },
       answer: {
-        method: "POST" | "GET",
-        route: `${this.url}answer`,
+        method: {
+          post: "POST",
+          get: "GET",
+        },
+        route: `${this.url}/answer`,
       },
       lesson: {
-        method: "POST" | "GET",
-        route: `${this.url}lesson`,
+        method: {
+          post: "POST",
+          get: "GET",
+        },
+        route: `${this.url}/lesson`,
       },
       questions: {
         method: "GET",
-        route: `${this.url}question/getall`,
+        route: `${this.url}/question/getall`,
       },
       answers: {
         method: "GET",
-        route: `${this.url}answer/getall`,
+        route: `${this.url}/answer/getall`,
       },
       lessons: {
         method: "GET",
-        route: `${this.url}lesson/getall`,
+        route: `${this.url}/lesson/getall`,
       },
     };
   }
   async login({ email = "", password = "" }) {
     const res = await fetch(`${this.routes.login.route}`, {
-      method: this.routes.login.method,
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -55,7 +66,7 @@ class API {
         email,
         password,
       }),
-      cors: "no-cors",
+      cors: "cors",
     });
     const data = await res.json();
     if (data.status) {
@@ -162,6 +173,27 @@ class API {
       }),
     });
     const data = await res.json();
+    return data;
+  }
+
+  async submitAnswer({ answerId, questionId }) {
+    const user = this.getUser();
+    const userId = Number(user.id);
+    const alternativeId = Number(answerId);
+
+    const res = await fetch(`${this.routes.answer.route}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId,
+        alternativeId,
+        questionId,
+      }),
+    });
+    const data = await res.json();
+    console.log(data);
     return data;
   }
 

@@ -12,7 +12,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css" />
-    <script src="./js/api.js"></script>
   </head>
   <body>
     <header>
@@ -25,7 +24,7 @@
           <a class="link" href="index.html#first">Home</a>
           <a class="link" href="index.html#second">Quem Somos</a>
           <a class="link" href="tel:+553597774738">Contato</a>
-          <button onclick="handleSignOut()">
+          <button id="logout">
             SAIR DA CONTA
             <img src="img/play.png" />
           </button>
@@ -115,22 +114,53 @@
           RESPONDER
           <img src="img/play.png" />
         </button>
-        <button>
+        <button class="next-question">
           PRÓXIMA QUESTÃO
           <img src="img/play.png" />
         </button>
       </div>
     </section>
 
-    <script src="js/questions.js"></script>
-    <script>
+    <script type="module">
+      import { API } from "./js/api.js";
+      import { Question } from "./js/questions.js";
+
       let sizeQuestions = 0;
       const api = new API();
+      const answerButton = document.querySelector(".answer-button");
+      const nextQuestionButton = document.querySelector(".next-question");
+      const logoutButton = document.querySelector("#logout");
+
+      logoutButton.addEventListener("click", handleSignOut);
+
       function handleSignOut() {
         api.signOut();
         window.location.href = "index.html";
       }
-      addEventListener("DOMContentLoaded", async () => {
+
+      // function clearQuestion() {
+      //   const question = document.querySelector(".question");
+      //   question.innerText = "";
+      //   const answers = document.querySelector(".answers");
+      //   answers.innerHTML = "";
+      // }
+
+      // function nextQuestion() {
+      //   clearQuestion();
+      //   clearAllAnswers();
+      //   const questionCurrent = questions[currentQuestionPosition];
+      //   console.log("Current", questionCurrent);
+      //   const nextQuestionPosition = currentQuestionPosition + 1;
+      //   if (nextQuestionPosition >= sizeQuestions) {
+      //     currentQuestionPosition = 0;
+      //   } else {
+      //     currentQuestionPosition = nextQuestionPosition;
+      //   }
+      //   const question = questions[currentQuestionPosition];
+      //   renderQuestion(question);
+      // }
+
+      function replaceUserNames() {
         const user = api.getUser();
         if (!user) {
           window.location.href = "index.html";
@@ -139,13 +169,76 @@
         usernames.forEach((username) => {
           username.innerText = user.name;
         });
-        const questions = (await api.getAllQuestions()) || [];
-        sizeQuestions = questions.length;
+      }
+
+      async function getQuestionsAPI() {
+        const questions = await api.getAllQuestions();
+        return questions;
+      }
+
+      function getRandomQuestion(questions, sizeQuestions) {
         const randomQuestion = Math.floor(Math.random() * sizeQuestions);
-        const question = questions[randomQuestion];
-        console.log(question);
-        renderQuestion(question);
-      });
+        return questions[randomQuestion];
+      }
+
+      function getNextQuestion(questions, currentQuestionPosition) {
+        console.log("Current", currentQuestionPosition);
+        const nextQuestionPosition = currentQuestionPosition + 1;
+        if (nextQuestionPosition >= sizeQuestions) {
+          currentQuestionPosition = 0;
+        } else {
+          currentQuestionPosition = nextQuestionPosition;
+        }
+        return questions[currentQuestionPosition];
+      }
+
+      function renderNextQuestion(nextQuestion, questionObjRef) {
+        questionObjRef.setAll(
+          nextQuestion.id,
+          nextQuestion.content,
+          nextQuestion.alternatives,
+          nextQuestion.lessonId
+        );
+        questionObjRef.renderQuestion();
+      }
+
+      async function main() {
+        let currentQuestionPosition = 0;
+        replaceUserNames();
+        const questions = await getQuestionsAPI();
+        sizeQuestions = questions.length;
+
+        const randomQuestion = getRandomQuestion(questions, sizeQuestions);
+        currentQuestionPosition = questions.findIndex(
+          (question) => question.id === randomQuestion.id
+        );
+
+        const questionObj = new Question(
+          randomQuestion.id,
+          randomQuestion.content,
+          randomQuestion.alternatives,
+          randomQuestion.lessonId
+        );
+
+        answerButton.addEventListener("click", () => {
+          questionObj.submitAnswer();
+        });
+
+        questionObj.renderQuestion();
+
+        nextQuestionButton.addEventListener("click", () => {
+          const nextQuestion = getNextQuestion(
+            questions,
+            currentQuestionPosition
+          );
+          currentQuestionPosition = questions.findIndex(
+            (question) => question.id === nextQuestion.id
+          );
+          renderNextQuestion(nextQuestion, questionObj);
+        });
+      }
+
+      addEventListener("DOMContentLoaded", main);
     </script>
   </body>
 </html>

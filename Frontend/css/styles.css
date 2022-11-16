@@ -335,6 +335,10 @@ footer {
   color: #707070;
 }
 
+.explanation.active {
+  display: flex;
+}
+
 #register {
   background-color: transparent;
   color: #2f9e41;

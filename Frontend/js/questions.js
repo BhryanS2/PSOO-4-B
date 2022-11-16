@@ -1,123 +1,181 @@
-let selected = -1;
+import { API } from "./api.js";
+const api = new API();
 
-const clearAllAnswers = () => {
-  selected = -1;
-  document.querySelectorAll(".answer").forEach((answer) => {
-    answer.classList.remove("answer-selected");
-  });
-};
-
-document.querySelectorAll(".answer").forEach((answer, index) => {
-  answer.addEventListener("click", () => {
-    clearAllAnswers();
-    selected = index;
-    answer.classList.add("answer-selected");
-  });
-});
-
-document.querySelector(".answer-button").addEventListener("click", () => {
-  if (selected !== -1) {
-    document.querySelector(".explanation").style.display = "flex";
-    if (selected === 4)
-      return (document.querySelector(".answer-button").innerHTML = "ACERTOU!");
-    document.querySelector(".answer-button").innerHTML = "TENTE NOVAMENTE";
-    clearAllAnswers();
+export class Question {
+  constructor(id, question, answer, lesson) {
+    this.id = id;
+    this.question = question;
+    this.answer = answer;
+    this.lesson = lesson;
+    this.selected = -1;
   }
-});
 
-/*
-{
-  question
-"id": 4,
-"content": "Um segmento de reta está dividido em duas partes na proporção áurea quando o todo está para uma das partes na mesma razão em que essa parte está para a outra. Essa constante de proporcionalidade é comumente representada pela letra grega φ, e seu valor é dado pela solução positiva da equação φ2 = φ + 1. Assim como a potência φ2 , as potências superiores de φ podem ser expressas da forma aφ + b, em que a e b são inteiros positivos, como apresentado no quadro.\r\nA potência φ = 7, escrita na forma aφ + b (a e b são inteiros positivos), é",
-"lessonId": 20,
-"userId": 1,
-"createdAt": "2022-11-06 07:35:16",
-"updatedAt": "2022-11-06 07:35:16",
-"alternatives": [
-  {
-    "content": "5φ + 3",
-    "isCorrect": 0,
-    "id": 13
-  },
-  {
-    "content": "7φ + 2",
-    "isCorrect": 0,
-    "id": 14
-  },
-  {
-    "content": "9φ + 6",
-    "isCorrect": 0,
-    "id": 15
-  },
-  {
-    "content": "11φ + 7",
-    "isCorrect": 0,
-    "id": 16
-  },
-  {
-    "content": "13φ + 8",
-    "isCorrect": 1,
-    "id": 17
+  getElements() {
+    const question = document.querySelector(".question");
+    const answers = document.querySelectorAll(".answer");
+    const answerButton = document.querySelector(".answer-button");
+    const explanation = document.querySelector(".explanation");
+    const answersContainer = document.querySelector(".answers");
+    return { question, answers, answerButton, explanation, answersContainer };
   }
-*/
 
-const searchQuestionAndRender = async (id) => {
-  const question = await api.getQuestion(id);
-  // const answers = await api.getAllAnswers();
-  const lesson = await api.getLesson(question.lessonId);
-  renderQuestion({ ...question, lesson });
-};
+  getQuestion() {
+    return this.question;
+  }
 
-const renderQuestion = async (question) => {
-  console.log(question);
-  const alternatives = question.alternatives;
+  getAnswer() {
+    return this.answer;
+  }
 
-  document.querySelector(".question").innerHTML = question.content;
-  // html select element
-  // document.querySelector(".lesson").innerTEXT = lesson.name;
-  /*
-  <div class="answer">
-    <div class="circle">E</div>
-    <span>13φ + 8</span>
-  </div>
-  */
-  const answersContainer = document.querySelector(".answers");
-  alternatives.forEach((alternative, index) => {
+  getLesson() {
+    return this.lesson;
+  }
+
+  getId() {
+    return this.id;
+  }
+
+  setQuestion(question) {
+    this.question = question;
+  }
+
+  setAnswer(answer) {
+    this.answer = answer;
+  }
+
+  setLesson(lesson) {
+    this.lesson = lesson;
+  }
+
+  setId(id) {
+    this.id = id;
+  }
+
+  getSelected() {
+    return this.selected;
+  }
+
+  setSelected(id) {
+    this.selected = id;
+  }
+
+  setAll(id, question, answer, lesson) {
+    this.setId(id);
+    this.setQuestion(question);
+    this.setAnswer(answer);
+    this.setLesson(lesson);
+  }
+
+  async save() {
+    const res = await api.submitAnswer({
+      answerId: this.selected,
+      questionId: this.id,
+    });
+    return res;
+  }
+
+  clearAllAnswers() {
+    this.setSelected(-1);
+    const { answers } = this.getElements();
+    answers.forEach((answer) => {
+      answer.classList.remove("answer-selected");
+    });
+  }
+
+  clearElements() {
+    const { question, answersContainer } = this.getElements();
+    question.innerHTML = "";
+    answersContainer.innerHTML = "";
+  }
+
+  renderAlternative(alternative, index) {
     const answer = document.createElement("div");
-    answer.classList.add("answer");
-    answer.dataset.id = alternative.id;
     const circle = document.createElement("div");
-    circle.classList.add("circle");
-    circle.innerHTML = String.fromCharCode(65 + index);
     const span = document.createElement("span");
+
+    answer.classList.add("answer");
+    circle.classList.add("circle");
+
+    answer.dataset.id = alternative.id;
+
+    circle.innerHTML = String.fromCharCode(65 + index);
     span.innerHTML = alternative.content;
+
     answer.appendChild(circle);
     answer.appendChild(span);
-    answersContainer.appendChild(answer);
-  });
-  addEventListenerToAnswers();
-  document
-    .querySelector(".answer-button")
-    .addEventListener("click", () => submitAnswer(alternatives));
-};
-
-const addEventListenerToAnswers = () => {
-  document.querySelectorAll(".answer").forEach((answer, index) => {
-    answer.addEventListener("click", () => {
-      clearAllAnswers();
-      selected = index;
-      answer.classList.add("answer-selected");
-    });
-  });
-};
-
-const submitAnswer = (alternatives) => {
-  if (selected !== -1) {
-    document.querySelector(".explanation").style.display = "flex";
-    if (alternatives[selected].isCorrect)
-      return (document.querySelector(".answer-button").innerHTML = "ACERTOU!");
-    document.querySelector(".answer-button").innerHTML = "TENTE NOVAMENTE";
-    clearAllAnswers();
+    return answer;
   }
-};
+
+  renderAnswers() {
+    const alternatives = this.answer;
+    const { answersContainer } = this.getElements();
+
+    const alternativesElements = alternatives.map((alternative, index) => {
+      const answer = this.renderAlternative(alternative, index);
+      return answer;
+    });
+
+    answersContainer.append(...alternativesElements);
+
+    const { answers } = this.getElements();
+
+    answers.forEach((answer) => {
+      answer.addEventListener("click", () => {
+        this.clearAllAnswers();
+        answer.classList.add("answer-selected");
+        this.setSelected(answer.dataset.id);
+      });
+    });
+  }
+
+  renderQuestion() {
+    this.clearElements();
+    this.alterTextDefault();
+    const { question } = this.getElements();
+    question.innerHTML = this.question;
+    this.renderAnswers();
+  }
+
+  alterTextDefault() {
+    const { answerButton } = this.getElements();
+    answerButton.innerHTML = "Responder";
+  }
+
+  alterTextSuccess() {
+    const { answerButton } = this.getElements();
+    answerButton.innerHTML = "ACERTOU!";
+  }
+
+  alterTextFail() {
+    const { answerButton } = this.getElements();
+    answerButton.innerHTML = "TENTE NOVAMENTE";
+  }
+
+  activeExplanation() {
+    const { explanation } = this.getElements();
+    explanation.classList.add("active");
+  }
+
+  desactiveExplanation() {
+    const { explanation } = this.getElements();
+    explanation.classList.remove("active");
+  }
+
+  submitAnswer() {
+    if (this.getSelected() === -1) return;
+    this.activeExplanation();
+    const selectedAnswer = Number(this.getSelected());
+    const answers = this.getAnswer();
+    const answer = answers.find(
+      (answer) => Number(answer.id) === selectedAnswer
+    );
+
+    if (answer.isCorrect) {
+      this.alterTextSuccess();
+    } else {
+      this.alterTextFail();
+    }
+    this.save();
+    this.clearAllAnswers();
+  }
+}

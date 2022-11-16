@@ -9,7 +9,7 @@ class GetQuestionService
   public function execute($id)
   {
     $reponse = array();
-    $sql = "SELECT questions.id, questions.content, questions.lesson_id, questions.user_id, questions.created_at, questions.updated_at, alternatives.content as alternative_content, alternatives.isCorrect FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id
+    $sql = "SELECT questions.id, questions.content, questions.lesson_id, , questions.created_at, questions.updated_at, alternatives.content as alternative_content, alternatives.isCorrect FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id
     where questions.id = :id";
     $stmt = $this->conn->prepare($sql);
     $stmt->bindParam(":id", $id);

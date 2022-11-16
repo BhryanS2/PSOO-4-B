@@ -13,7 +13,6 @@ class GetAllQuestionsService
     $sql = "SELECT questions.id,
     questions.content,
     questions.lesson_id,
-    questions.user_id,
     questions.created_at,
     questions.updated_at,
     alternatives.content as alternative_content,
@@ -31,7 +30,6 @@ class GetAllQuestionsService
           "id" => $row['id'],
           "content" => $row['content'],
           "lessonId" => $row['lesson_id'],
-          "userId" => $row['user_id'],
           "createdAt" => $row['created_at'],
           "updatedAt" => $row['updated_at'],
           "alternatives" => array()

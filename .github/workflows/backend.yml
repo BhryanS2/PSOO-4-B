@@ -20,6 +20,6 @@ jobs:
           server: ftpupload.net
           username: ${{ secrets.username }}
           password: ${{ secrets.password }}
-          local-dir: ./backend/
+          local-dir: ./Backend/
           server-dir: /htdocs/
           dangerous-clean-slate: false

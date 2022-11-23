@@ -1,23 +1,23 @@
 export class API {
   constructor() {
-    this.url = "http://localhost/Luisa/Backend/index.php"; // Trocar quando subir para o infinity
+    this.url = "http://localhost/Luisa/Backend/index.php?route="; // Trocar quando subir para o infinity
     this.user = {};
     this.routes = {
       login: {
         method: "POST",
-        route: `${this.url}?route=login`,
+        route: `${this.url}login`,
       },
       register: {
         method: "POST",
-        route: `${this.url}?route=signup`,
+        route: `${this.url}signup`,
       },
       delete: {
         method: "POST",
-        route: `${this.url}?route=delete`,
+        route: `${this.url}delete`,
       },
       getAll: {
         method: "GET",
-        route: `${this.url}?route=getall`,
+        route: `${this.url}getall`,
       },
       question: {
         method: {
@@ -26,33 +26,33 @@ export class API {
           get: "GET",
           delete: "DELETE",
         },
-        route: `${this.url}?route=question`,
+        route: `${this.url}question`,
       },
       answer: {
         method: {
           post: "POST",
           get: "GET",
         },
-        route: `${this.url}?route=answer`,
+        route: `${this.url}answer`,
       },
       lesson: {
         method: {
           post: "POST",
           get: "GET",
         },
-        route: `${this.url}?route=lesson`,
+        route: `${this.url}lesson`,
       },
       questions: {
         method: "GET",
-        route: `${this.url}?route=question-getall`,
+        route: `${this.url}question-getall`,
       },
       answers: {
         method: "GET",
-        route: `${this.url}?route=answer-getall`,
+        route: `${this.url}answer-getall`,
       },
       lessons: {
         method: "GET",
-        route: `${this.url}?route=lesson-getall`,
+        route: `${this.url}lesson-getall`,
       },
     };
   }
@@ -130,7 +130,7 @@ export class API {
   }
 
   async getQuestion(id) {
-    const res = await fetch(`${this.routes.question.route}?id=${id}`, {
+    const res = await fetch(`${this.routes.question.route}&id=${id}`, {
       method: this.routes.question.method,
       headers: {
         "Content-Type": "application/json",
@@ -141,7 +141,7 @@ export class API {
   }
 
   async getAnswer(id) {
-    const res = await fetch(`${this.routes.answer.route}?id=${id}`, {
+    const res = await fetch(`${this.routes.answer.route}&id=${id}`, {
       method: this.routes.answer.method,
       headers: {
         "Content-Type": "application/json",
@@ -152,7 +152,7 @@ export class API {
   }
 
   async getLesson(id) {
-    const res = await fetch(`${this.routes.lesson.route}?id=${id}`, {
+    const res = await fetch(`${this.routes.lesson.route}&id=${id}`, {
       method: this.routes.lesson.method,
       headers: {
         "Content-Type": "application/json",

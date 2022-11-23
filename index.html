@@ -11,23 +11,82 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./Frontend/css/styles.css" />
-    <script src="./Frontend/js/api.js"></script>
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <!-- <div class="" id="login">
-      <div class="">
+    <header>
+      <div class="center">
+        <div>
+          <img src="img/logo-12.png" width="18px" />
+          <b>bimestral</b>
+        </div>
+        <div>
+          <a class="link" href="#first">Home</a>
+          <a class="link" href="#second">Quem Somos</a>
+          <a class="link" href="tel:+553597774738">Contato</a>
+          <button onclick="openModal('login')">
+            FAZER QUESTÕES
+            <img src="img/play.png" />
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="first-section" id="first">
+      <div class="center">
+        <div class="first-info">
+          <h2>Bimestral IF</h2>
+          <h3>
+            Treine para a bimestral com a gente: são inúmeras questões de todas
+            as matérias para você arrasar na prova!
+          </h3>
+          <button onclick="openModal('login')">
+            TREINAR AGORA
+            <img src="img/play.png" />
+          </button>
+          <a href="#second"
+            ><img src="img/down-arrow.png" class="down-arrow"
+          /></a>
+        </div>
+
+        <img src="img/first-image.png" class="section-img" />
+      </div>
+    </section>
+
+    <section class="first-section section-inverse" id="second">
+      <div class="center">
+        <div>
+          <h2>Quem somos</h2>
+          <h3>
+            Somos uma plataforma nascida em Outubro de 2022, para ajudar
+            estudantes do IF de Muzambinho a treinar para a temida bimestral.
+          </h3>
+          <button onclick="openModal('login')">
+            TREINAR AGORA
+            <img src="img/play.png" />
+          </button>
+          <a href="#first"><img src="img/top-arrow.png" class="top-arrow" /></a>
+        </div>
+
+        <img src="img/second-image.png" class="section-img" />
+      </div>
+    </section>
+
+    <footer>
+      <p>Feito com 💚 por Luísa Manoela Romão Salles</p>
+    </footer>
+
+    <div class="modal-background" id="login">
+      <div class="modal">
         <form action="#">
           <h2>Entre!</h2>
           <p>Digite seus dados para começar! ;)</p>
           <input type="email" placeholder="E-mail" id="email" />
           <input type="password" placeholder="Senha" id="password" />
 
-          <button type="submit">
-            Entrar <img src="./Frontend/img/play.png" />
-          </button>
+          <button type="submit">Entrar <img src="img/play.png" /></button>
           <button type="button" id="register" onclick="openRegisterModal()">
-            Cadastrar <img src="./Frontend/img/play-green.png" width="11px" />
+            Cadastrar <img src="img/play-green.png" width="11px" />
           </button>
           <a
             style="
@@ -42,28 +101,43 @@
       </div>
     </div>
 
-    <div class="" id="register-modal">
-      <div class="">
+    <div class="modal-background" id="register-modal">
+      <div class="modal">
         <form action="#">
           <h2>Cadastre-se!</h2>
           <p>Digite seus dados para começar! ;)</p>
           <input type="text" placeholder="Nome" id="name" />
           <input type="email" placeholder="E-mail" id="email" />
           <input type="password" placeholder="Senha" id="password" />
-          <button type="submit">
-            Cadastrar <img src="./Frontend/img/play.png" />
-          </button>
+          <button type="submit">Cadastrar <img src="img/play.png" /></button>
         </form>
       </div>
-    </div> -->
-    <button onclick="fn()">Enviar login</button>
+    </div>
 
-    <script src="./Frontend/js/script.js"></script>
-    <script>
+    <script src="js/script.js"></script>
+    <script type="module">
+      import { API } from "./js/api.js";
+      const api = new API();
       const forms = document.querySelectorAll(".modal-background form");
+
       forms.forEach((form) => {
         form.addEventListener("submit", (e) => handleSubimit(e, form));
       });
+
+      addEventListener("DOMContentLoaded", () => {
+        const user = localStorage.getItem("user");
+        if (user) {
+          window.location.href = "./questoes.html";
+        }
+      });
+
+      function userLogged() {
+        const user = localStorage.getItem("user");
+        if (user) {
+          window.location.href = "./questoes.html";
+        }
+      }
+
       async function handleSubimit(e, form) {
         e.preventDefault();
         const inputs = form.querySelectorAll("input");
@@ -71,13 +145,12 @@
         inputs.forEach((input) => {
           data[input.id] = input.value;
         });
-        const api = new API();
-        console.log(data);
         if (data["name"]) {
           const res = await api.register(data);
           if (!res.status) {
             alert(res.message);
           }
+          userLogged();
           return;
         }
         const res = await api.login(data);
@@ -85,20 +158,8 @@
         if (!res.status) {
           alert(res.message);
         }
+        userLogged();
       }
-      async function fn() {
-        const api = new API();
-        const res = await api.login({
-          email: "bhryanstepenhen@gmail.com",
-          password: "Papagaio1@",
-        });
-        if (!res.status) {
-          alert(res.message);
-          return;
-        }
-        window.location.href = "./Frontend/pages/home.html";
-      }
-      fn();
     </script>
   </body>
 </html>

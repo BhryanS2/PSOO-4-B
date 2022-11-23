@@ -21,11 +21,11 @@ require "controllers/userAnswer/RegisterController.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
-$uri = explode("?", $uri)[0];
-$uri = explode("/", $uri);
-$uri = array_filter($uri);
-$uri = array_values($uri);
-$uri = implode("/", $uri);
+// $uri = explode("?", $uri)[0];
+// $uri = explode("/", $uri);
+// $uri = array_filter($uri);
+// $uri = array_values($uri);
+// $uri = implode("/", $uri);
 
 $routes = [
 	"login" => [
@@ -40,7 +40,7 @@ $routes = [
 	"getall" => [
 		"GET" => "GetAllController",
 	],
-	"lesson/getall" => [
+	"lesson-getall" => [
 		"GET" => "GetAllLessonsController",
 	],
 	"lesson" => [
@@ -56,14 +56,14 @@ $routes = [
 		"GET" => "getQuestionController",
 		"POST" => "RegisterQuestionController",
 	],
-	"question/getall" => [
+	"question-getall" => [
 		"GET" => "GetAllQuestionsController",
 	],
 	"answer" => [
 		"POST" => "SendAnserController",
 		"GET" => "GetAnserController",
 	],
-	"answer/getall" => [
+	"answer-getall" => [
 		"GET" => "GetAllAnswersController",
 	],
 
@@ -91,7 +91,26 @@ function main()
 	header("HTTP/2 200 OK");
 
 	global $method, $uri, $routes;
-	$controller = $uri;
+	$route = isset($_GET['route']) ? $_GET['route'] : '';
+
+	$controller = $route;
+
+	// $uri = explode("?", $uri)[0];
+	// $uri = explode("/", $uri);
+	// $uri = array_filter($uri);
+	// $uri = array_values($uri);
+	// $uri = implode("/", $uri);
+
+	// $uri = explode("?", $uri);
+	// $uri = $uri[1];
+	// $uri = explode("&", $uri);
+	// $uri = array_filter($uri);
+	// $uri = array_values($uri);
+	// $uri = implode("/", $uri);
+	// $uri = explode("=", $uri);
+	// $uri = $uri[1];
+	// print_r($uri);
+	// $controller = $uri;
 
 	if (!array_key_exists($controller, $routes)) {
 		return404();

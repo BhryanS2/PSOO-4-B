@@ -30,8 +30,8 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
           server: ftpupload.net
-          username: ${{ secrets.luisa_username }}
-          password: ${{ secrets.luisa_password }}
+          username: epiz_33063653
+          password: WrDwdPq1yeo4Pzx
           local-dir: ./
           server-dir: /htdocs/
           dangerous-clean-slate: false

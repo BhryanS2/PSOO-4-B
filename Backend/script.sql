@@ -4,6 +4,16 @@ create database if not exists `PSOO`;
 
 use `PSOO`;
 
+drop table if exists users;
+
+drop table if exists questions;
+
+drop table if exists lesson;
+
+drop table if exists alternatives;
+
+drop table if exists answers;
+
 create table if not exists users (
   id int auto_increment primary key,
   name varchar(255) not null,
@@ -11,7 +21,7 @@ create table if not exists users (
   password varchar(255) not null,
   created_at timestamp default current_timestamp,
   updated_at timestamp default current_timestamp on update current_timestamp
-);
+) charset = utf8 collate = utf8_general_ci engine = innodb;
 
 create table if not exists questions (
   id int auto_increment primary key,
@@ -19,7 +29,7 @@ create table if not exists questions (
   lesson_id int not null,
   created_at timestamp default current_timestamp,
   updated_at timestamp default current_timestamp on update current_timestamp
-);
+) charset = utf8 collate = utf8_general_ci engine = innodb;
 
 create table if not exists lesson (
   id int auto_increment primary key,
@@ -27,7 +37,7 @@ create table if not exists lesson (
   description text not null,
   created_at timestamp default current_timestamp,
   updated_at timestamp default current_timestamp on update current_timestamp
-);
+) charset = utf8 collate = utf8_general_ci engine = innodb;
 
 create table if not exists alternatives (
   id int auto_increment primary key,
@@ -36,7 +46,7 @@ create table if not exists alternatives (
   isCorrect boolean not null,
   created_at timestamp default current_timestamp,
   updated_at timestamp default current_timestamp on update current_timestamp
-);
+) charset = utf8 collate = utf8_general_ci engine = innodb;
 
 create table if not exists answers (
   id int auto_increment primary key,
@@ -46,7 +56,7 @@ create table if not exists answers (
   correct boolean not null,
   created_at timestamp default current_timestamp,
   updated_at timestamp default current_timestamp on update current_timestamp
-);
+) charset = utf8 collate = utf8_general_ci engine = innodb;
 
 INSERT INTO
   `lesson` (`name`, `description`)

@@ -1,23 +1,23 @@
 export class API {
   constructor() {
-    this.url = "http://localhost:8000";
+    this.url = "http://localhost/Luisa/Backend/index.php"; // Trocar quando subir para o infinity
     this.user = {};
     this.routes = {
       login: {
         method: "POST",
-        route: `${this.url}/login`,
+        route: `${this.url}?route=login`,
       },
       register: {
         method: "POST",
-        route: `${this.url}/signup`,
+        route: `${this.url}?route=signup`,
       },
       delete: {
         method: "POST",
-        route: `${this.url}/delete`,
+        route: `${this.url}?route=delete`,
       },
       getAll: {
         method: "GET",
-        route: `${this.url}/getall`,
+        route: `${this.url}?route=getall`,
       },
       question: {
         method: {
@@ -26,33 +26,33 @@ export class API {
           get: "GET",
           delete: "DELETE",
         },
-        route: `${this.url}/question`,
+        route: `${this.url}?route=question`,
       },
       answer: {
         method: {
           post: "POST",
           get: "GET",
         },
-        route: `${this.url}/answer`,
+        route: `${this.url}?route=answer`,
       },
       lesson: {
         method: {
           post: "POST",
           get: "GET",
         },
-        route: `${this.url}/lesson`,
+        route: `${this.url}?route=lesson`,
       },
       questions: {
         method: "GET",
-        route: `${this.url}/question/getall`,
+        route: `${this.url}?route=question-getall`,
       },
       answers: {
         method: "GET",
-        route: `${this.url}/answer/getall`,
+        route: `${this.url}?route=answer-getall`,
       },
       lessons: {
         method: "GET",
-        route: `${this.url}/lesson/getall`,
+        route: `${this.url}?route=lesson-getall`,
       },
     };
   }

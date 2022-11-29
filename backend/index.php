@@ -78,10 +78,9 @@ function main()
 	header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS");
 	header("HTTP/2 200 OK");
 
-	$method = $_SERVER['REQUEST_METHOD'];
-
 	global $routes;
 	$route = isset($_GET['route']) ? $_GET['route'] : '';
+	$method = isset($_GET['method']) ? $_GET['method'] : "GET";
 
 	$controller = $route;
 

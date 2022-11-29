@@ -5,19 +5,19 @@ export class API {
     this.routes = {
       login: {
         method: "POST",
-        route: `${this.url}login`,
+        route: `${this.url}login&method=POST`,
       },
       register: {
         method: "POST",
-        route: `${this.url}signup`,
+        route: `${this.url}signup&method=POST`,
       },
       delete: {
         method: "POST",
-        route: `${this.url}delete`,
+        route: `${this.url}delete&method=POST`,
       },
       getAll: {
         method: "GET",
-        route: `${this.url}getall`,
+        route: `${this.url}getall&method=GET`,
       },
       question: {
         method: {
@@ -44,15 +44,15 @@ export class API {
       },
       questions: {
         method: "GET",
-        route: `${this.url}question-getall`,
+        route: `${this.url}question-getall&method=GET`,
       },
       answers: {
         method: "GET",
-        route: `${this.url}answer-getall`,
+        route: `${this.url}answer-getall&method=GET`,
       },
       lessons: {
         method: "GET",
-        route: `${this.url}lesson-getall`,
+        route: `${this.url}lesson-getall&method=GET`,
       },
     };
   }
@@ -96,8 +96,8 @@ export class API {
     return data;
   }
   async getAllQuestions() {
-    const res = await fetch(`${this.routes.questions.route}`, {
-      method: this.routes.questions.method,
+    const res = await fetch(`${this.routes.questions.route}&method=GET`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
@@ -108,8 +108,8 @@ export class API {
   }
 
   async getAllAnswers() {
-    const res = await fetch(`${this.routes.answers.route}`, {
-      method: this.routes.answers.method,
+    const res = await fetch(`${this.routes.answers.route}&method=GET`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
@@ -119,8 +119,8 @@ export class API {
   }
 
   async getAllLessons() {
-    const res = await fetch(`${this.routes.lessons.route}`, {
-      method: this.routes.lessons.method,
+    const res = await fetch(`${this.routes.lessons.route}&method=GET`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
@@ -130,19 +130,22 @@ export class API {
   }
 
   async getQuestion(id) {
-    const res = await fetch(`${this.routes.question.route}&id=${id}`, {
-      method: this.routes.question.method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `${this.routes.question.route}&id=${id}&method=GET`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const data = await res.json();
     return data;
   }
 
   async getAnswer(id) {
-    const res = await fetch(`${this.routes.answer.route}&id=${id}`, {
-      method: this.routes.answer.method,
+    const res = await fetch(`${this.routes.answer.route}&id=${id}&method=GET`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
@@ -152,8 +155,8 @@ export class API {
   }
 
   async getLesson(id) {
-    const res = await fetch(`${this.routes.lesson.route}&id=${id}`, {
-      method: this.routes.lesson.method,
+    const res = await fetch(`${this.routes.lesson.route}&id=${id}&method=GET`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
@@ -163,8 +166,8 @@ export class API {
   }
 
   async deleteQuestion(id) {
-    const res = await fetch(`${this.routes.question.route}`, {
-      method: this.routes.question.method,
+    const res = await fetch(`${this.routes.question.route}&method=DELETE`, {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },

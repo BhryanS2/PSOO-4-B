@@ -126,6 +126,8 @@ function main()
 	$controller->handle();
 }
 
-main();
+// main();
+
+echo "Hello World";
 
 //  php -S localhost:3000

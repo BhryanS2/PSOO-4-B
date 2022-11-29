@@ -10,6 +10,6 @@ class GetAllAnswersController
     $service = new GetAllAnswersService();
     $result = $service->execute();
     echo json_encode($result);
-    return;
+    return json_encode($result);
   }
 }

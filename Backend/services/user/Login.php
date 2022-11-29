@@ -25,6 +25,7 @@ class LoginService
     $stmt->execute();
     $result = $stmt->fetchAll();
     // echo json_encode($result);
+    return json_encode($result);
     if (count($result) > 0) {
       $user = $result[0];
       $userPassword = $user["password"];

@@ -33,6 +33,6 @@ class SignupController
 		$service = new SingupService();
 		$result = $service->execute($email, $password, $name);
 		echo json_encode($result);
-		return;
+		return json_encode($result);
 	}
 }

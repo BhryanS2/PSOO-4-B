@@ -29,6 +29,7 @@ class LoginController
 		$service = new LoginService();
 		$result = $service->execute($email, $password);
 		echo json_encode($result);
-		return;
+		return json_encode($result);
+		return json_encode($result);
 	}
 }

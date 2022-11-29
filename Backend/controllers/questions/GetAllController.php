@@ -22,6 +22,6 @@ class GetAllQuestionsController
     $service = new GetAllQuestionsService();
     $result = $service->execute($filters);
     echo json_encode($result);
-    return;
+    return json_encode($result);
   }
 }

@@ -35,6 +35,7 @@ class RegisterQuestionController
 		$service = new RegisterQuestionService();
 		$result = $service->execute($content, $userId, $lessonId, $alternatives);
 		echo json_encode($result);
-		return;
+		return json_encode($result);
+		return json_encode($result);
 	}
 }

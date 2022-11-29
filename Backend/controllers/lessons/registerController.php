@@ -26,11 +26,11 @@ class RegisterLessonController
 			}
 			http_response_code(400);
 			echo json_encode(array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired));
-			return;
+			return json_encode(array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired));
 		}
 		$service = new RegisterLessonService();
 		$result = $service->execute($name, $description, $userId);
 		echo json_encode($result);
-		return $result;
+		return json_encode($result);
 	}
 }

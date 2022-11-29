@@ -31,6 +31,7 @@ class SendAnserController
 		$service = new SendAnswerService();
 		$result = $service->execute($userId, $questionId, $alternativeId);
 		echo json_encode($result);
-		return;
+		return json_encode($result);
+		return json_encode($result);
 	}
 }

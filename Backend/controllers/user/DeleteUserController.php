@@ -17,6 +17,6 @@ class DeleteUserController
     $service = new DeleteService();
     $result = $service->execute($id);
     echo json_encode($result);
-    return;
+    return json_encode($result);
   }
 }

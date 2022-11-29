@@ -16,6 +16,7 @@ class GetAnserController
 		$service = new GetAnswerService();
 		$result = $service->execute($id);
 		echo json_encode($result);
-		return;
+		return json_encode($result);
+		return json_encode($result);
 	}
 }

@@ -1,8 +1,8 @@
 <?php
 echo "<h1>PHP</h1>";
 
-require "./Backend/connection.php";
-require "./Backend/controllers/user/GetAllController.php";
+require "./backend/connection.php";
+require "./backend/controllers/user/GetAllController.php";
 
 ?>
 <h1>connection</h1>

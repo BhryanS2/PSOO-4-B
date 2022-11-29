@@ -1,6 +1,6 @@
 export class API {
   constructor() {
-    this.url = "../Backend/index.php?route="; // Trocar quando subir para o infinity
+    this.url = "./Backend/index.php?route="; // Trocar quando subir para o infinity
     this.user = {};
     this.routes = {
       login: {

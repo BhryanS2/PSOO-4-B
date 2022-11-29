@@ -34,5 +34,5 @@ jobs:
           password: WrDwdPq1yeo4Pzx
           local-dir: ./
           server-dir: /htdocs/
-          dangerous-clean-slate: true
+          dangerous-clean-slate: false
 

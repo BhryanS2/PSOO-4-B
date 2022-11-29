@@ -2,6 +2,7 @@
 echo "<h1>PHP</h1>";
 
 require "./Backend/connection.php";
+require "./Backend/controllers/user/GetAllController.php";
 
 ?>
 <h1>connection</h1>
@@ -19,3 +20,8 @@ $users = $statement->fetchAll(PDO::FETCH_ASSOC);
 	print_r($users);
 	?>
 </pre>
+
+<?php
+$controller = new GetAllController();
+$controller->handle();
+?>

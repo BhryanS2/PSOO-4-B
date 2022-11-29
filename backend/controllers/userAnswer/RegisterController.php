@@ -26,7 +26,7 @@ class SendAnserController
 			}
 			http_response_code(400);
 			echo json_encode(array("status" => false, "message" => "Send answer failed", "fieldsRequired" => $fieldsRequired));
-			return;
+			return json_encode(array("status" => false, "message" => "Send answer failed", "fieldsRequired" => $fieldsRequired));
 		}
 		$service = new SendAnswerService();
 		$result = $service->execute($userId, $questionId, $alternativeId);

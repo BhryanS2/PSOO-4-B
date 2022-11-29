@@ -12,13 +12,12 @@ class GetQuestionController
 		if (!$id) {
 			http_response_code(400);
 			echo json_encode(array("status" => false, "message" => "Get question failed", "fieldsRequired" => ["id"]));
-			return;
+			return json_encode(array("status" => false, "message" => "Get question failed", "fieldsRequired" => ["id"]));
 		}
 
 		$service = new GetQuestionService();
 		$result = $service->execute($id);
 		echo json_encode($result);
-		return json_encode($result);
 		return json_encode($result);
 	}
 }

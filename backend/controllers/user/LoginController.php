@@ -24,7 +24,7 @@ class LoginController
 
 			http_response_code(400);
 			echo json_encode(array("status" => false, "message" => "Login failed", "fieldsRequired" => $fieldsRequired));
-			return;
+			return json_encode(array("status" => false, "message" => "Login failed", "fieldsRequired" => $fieldsRequired));
 		}
 		$service = new LoginService();
 		$result = $service->execute($email, $password);

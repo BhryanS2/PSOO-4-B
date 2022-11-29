@@ -30,12 +30,11 @@ class RegisterQuestionController
 			}
 			http_response_code(400);
 			echo json_encode(array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired));
-			return;
+			return json_encode(array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired));
 		}
 		$service = new RegisterQuestionService();
 		$result = $service->execute($content, $userId, $lessonId, $alternatives);
 		echo json_encode($result);
-		return json_encode($result);
 		return json_encode($result);
 	}
 }

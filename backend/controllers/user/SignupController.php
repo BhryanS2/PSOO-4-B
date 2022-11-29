@@ -27,7 +27,7 @@ class SignupController
 			}
 			http_response_code(400);
 			echo json_encode(array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired));
-			return;
+			return json_encode(array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired));
 		}
 
 		$service = new SingupService();

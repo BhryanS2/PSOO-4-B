@@ -66,7 +66,7 @@ export class API {
         email,
         password,
       }),
-      cors: "cors",
+      cors: "no-cors",
     });
     const data = await res.json();
     if (data.status) {

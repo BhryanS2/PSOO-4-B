@@ -23,5 +23,5 @@ $users = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 <?php
 $controller = new GetAllController();
-// $controller->handle();
+$controller->handle();
 ?>

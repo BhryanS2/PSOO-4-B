@@ -9,19 +9,16 @@ class GetAnswerService
 
 	public function execute($id)
 	{
-		$result = array();
+		$response = array();
 		$sql = "SELECT * FROM answers WHERE id = :id";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bindParam(":id", $id);
 		$stmt->execute();
-		$response = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		$result['status'] = true;
-		$result['message'] = "Get answer success";
-		$result['data'] = $response;
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$response['status'] = true;
+		$response['message'] = "Get answer success";
+		$response['data'] = $result;
 
-		echo json_encode($result);
-
-
-		return json_encode($result);
+		return $response;
 	}
 }

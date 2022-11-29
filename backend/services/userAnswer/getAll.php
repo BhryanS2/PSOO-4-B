@@ -14,11 +14,10 @@ class GetAllAnswersService
 		$sql = "SELECT * FROM answers";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->execute();
-		$response = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		$result['status'] = true;
-		$result['message'] = "Get all answers success";
-		$result['data'] = $response;
-		echo json_encode($result);
-		return json_encode($result);
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$response['status'] = true;
+		$response['message'] = "Get all answers success";
+		$response['data'] = $result;
+		return $response;
 	}
 }

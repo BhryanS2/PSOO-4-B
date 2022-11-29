@@ -39,14 +39,13 @@ class SendAnswerService
 		$stmt->bindParam(":alternative_id", $alternativeId);
 		$stmt->bindParam(":correct", $isCorrect);
 		$stmt->execute();
-		$result['status'] = true;
-		$result['message'] = "Send answer success";
-		$result['data'] = array(
+		$response['status'] = true;
+		$response['message'] = "Send answer success";
+		$response['data'] = array(
 			"isCorrect" => strlen($isCorrect) > 0,
 			"correctAlternativeId" => $correctAlternativeId
 		);
 
-		echo json_encode($result);
-		return json_encode($result);
+		return $response;
 	}
 }

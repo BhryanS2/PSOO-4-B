@@ -117,6 +117,4 @@ function main()
 
 main();
 
-echo "Hello World";
-
 //  php -S localhost:3000

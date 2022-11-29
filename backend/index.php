@@ -72,13 +72,13 @@ $routes = [
 
 function return404()
 {
-	http_response_code(404);
+	// http_response_code(404);
 	echo json_encode(array("status" => false, "message" => "404 Not Found"));
 }
 
 function return405($method = "GET")
 {
-	http_response_code(405);
+	// http_response_code(405);
 	echo json_encode(array("status" => false, "message" => "Error 405, $method method not allowed"));
 }
 
@@ -126,7 +126,7 @@ function main()
 	$controller->handle();
 }
 
-// main();
+main();
 
 echo "Hello World";
 

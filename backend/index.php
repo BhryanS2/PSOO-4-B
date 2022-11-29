@@ -18,15 +18,6 @@ require "controllers/userAnswer/GetAllController.php";
 require "controllers/userAnswer/GetController.php";
 require "controllers/userAnswer/RegisterController.php";
 
-
-$method = $_SERVER['REQUEST_METHOD'];
-$uri = $_SERVER['REQUEST_URI'];
-// $uri = explode("?", $uri)[0];
-// $uri = explode("/", $uri);
-// $uri = array_filter($uri);
-// $uri = array_values($uri);
-// $uri = implode("/", $uri);
-
 $routes = [
 	"login" => [
 		"POST" => "LoginController",
@@ -44,9 +35,6 @@ $routes = [
 		"GET" => "GetAllLessonsController",
 	],
 	"lesson" => [
-		"/getall" => [
-			"GET" => "GetAllLessonsController",
-		],
 		"GET" => "GetLessonController",
 		"DELETE" => "DeleteLessonController",
 		"POST" => "RegisterLessonController",
@@ -90,7 +78,9 @@ function main()
 	header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS");
 	header("HTTP/2 200 OK");
 
-	global $method, $uri, $routes;
+	$method = $_SERVER['REQUEST_METHOD'];
+
+	global $routes;
 	$route = isset($_GET['route']) ? $_GET['route'] : '';
 
 	$controller = $route;

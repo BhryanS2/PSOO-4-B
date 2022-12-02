@@ -5,7 +5,7 @@ class GetAllQuestionsController
 	{
 		require "services/questions/GetAllService.php";
 	}
-	public function handle()
+	public function handle(array $data)
 	{
 		$filtersAccepted = [
 			"id",
@@ -14,10 +14,10 @@ class GetAllQuestionsController
 			"lessonId",
 			"userId"
 		];
-		// $filters = array_intersect_key($data, array_flip($filtersAccepted));
+		$filters = array_intersect_key($data, array_flip($filtersAccepted));
 
 		$service = new GetAllQuestionsService();
-		$result = $service->execute();
+		$result = $service->execute($filters);
 
 		return $result;
 	}

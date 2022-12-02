@@ -58,7 +58,7 @@ class GetAllQuestionsService
 		return $filtered_questions;
 	}
 
-	public function execute()
+	public function execute(array $data)
 	{
 
 		$response = array();
@@ -72,12 +72,12 @@ class GetAllQuestionsService
     alternatives.isCorrect,
     alternatives.id as alternative_id
     FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
-		return $sql;
+
 		$result = $this->prepareSQL($sql);
 		$questions = $this->toJSON($result);
-		// if (count($data) > 0) {
-		// 	$questions = $this->filter_questions($questions, $data);
-		// }
+		if (count($data) > 0) {
+			$questions = $this->filter_questions($questions, $data);
+		}
 		$response['status'] = false;
 		$response['message'] = "Get all questions failed";
 

@@ -59,7 +59,7 @@ class GetAllQuestionsService
 		);
 
 
-		$sql = "SELECT * FROM questions";
+		$sql = "SELECT * FROM `questions`";
 
 		$stmt = $this->conn->prepare($sql);
 		$result = $stmt->execute();

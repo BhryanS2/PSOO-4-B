@@ -71,7 +71,9 @@ class GetAllQuestionsService
 
 		$result = $stmt->get_result();
 		$result = $result->fetch_assoc();
-		// $response['result'] = $result;
+
+		$response['sql'] = $sql;
+		$response['result'] = $result;
 
 		return $response;
 

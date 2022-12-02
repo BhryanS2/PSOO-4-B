@@ -62,16 +62,8 @@ class GetAllQuestionsService
 	{
 
 		$response = array();
-		$sql = "SELECT questions.id,
-    questions.content,
-    questions.lesson_id,
-    questions.created_at,
-    questions.updated_at,
-		questions.explanation,
-    alternatives.content as alternative_content,
-    alternatives.isCorrect,
-    alternatives.id as alternative_id
-    FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
+		$sql = "SELECT * FROM questions
+		INNER JOIN alternatives ON questions.id = alternatives.question_id";
 
 		$result = $this->prepareSQL($sql);
 		$questions = $this->toJSON($result);

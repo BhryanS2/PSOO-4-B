@@ -58,7 +58,7 @@ class GetAllQuestionsService
 		return $filtered_questions;
 	}
 
-	public function execute(array $data)
+	public function execute()
 	{
 		return array(
 			"status" => true,
@@ -79,9 +79,9 @@ class GetAllQuestionsService
 		return $sql;
 		$result = $this->prepareSQL($sql);
 		$questions = $this->toJSON($result);
-		if (count($data) > 0) {
-			$questions = $this->filter_questions($questions, $data);
-		}
+		// if (count($data) > 0) {
+		// 	$questions = $this->filter_questions($questions, $data);
+		// }
 		$response['status'] = false;
 		$response['message'] = "Get all questions failed";
 

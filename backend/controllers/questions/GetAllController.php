@@ -17,7 +17,7 @@ class GetAllQuestionsController
 		$filters = array_intersect_key($data, array_flip($filtersAccepted));
 
 		$service = new GetAllQuestionsService();
-		$result = $service->execute($filters);
+		$result = $service->execute();
 		$result = array(
 			...$result,
 			"filters_accepted" => $filtersAccepted,

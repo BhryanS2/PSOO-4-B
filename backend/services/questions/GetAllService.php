@@ -66,19 +66,20 @@ class GetAllQuestionsService
     questions.updated_at,
 		questions.explanation
     FROM questions";
+
 		$stmt = $this->conn->prepare($sql);
 		$result = $stmt->execute();
-		// $conn = new mysqli('', '', '', '');
-		// $stmt = $conn->prepare($sql);
-		// $result = $stmt->execute();
+
 		if (!$result) {
 			$response['error'] = $this->conn->error;
 			return $response;
 		}
+
 		$result = $stmt->get_result();
-		$fetch_all = $result->fetch_all(MYSQLI_ASSOC);
+		$questions = $result->fetch_all(MYSQLI_ASSOC);
+
 		$response['result'] = $result;
-		$response['fetch_all'] = $fetch_all;
+		// $response['fetch_all'] = $fetch_all;
 		// $response['questions'] = $questions;
 		return $response;
 

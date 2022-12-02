@@ -59,13 +59,7 @@ class GetAllQuestionsService
 		);
 
 
-		$sql = "SELECT questions.id,
-    questions.content,
-    questions.lesson_id,
-    questions.created_at,
-    questions.updated_at,
-		questions.explanation
-    FROM questions";
+		$sql = "SELECT * FROM questions";
 
 		$stmt = $this->conn->prepare($sql);
 		$result = $stmt->execute();
@@ -76,11 +70,9 @@ class GetAllQuestionsService
 		}
 
 		$result = $stmt->get_result();
-		$questions = $result->fetch_all(MYSQLI_ASSOC);
+		$result = $result->fetch_assoc();
+		// $response['result'] = $result;
 
-		$response['result'] = $result;
-		// $response['fetch_all'] = $fetch_all;
-		// $response['questions'] = $questions;
 		return $response;
 
 		$questions = $this->toJSON($result);

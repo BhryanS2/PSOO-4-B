@@ -72,7 +72,7 @@ class GetAllQuestionsService
 		$stmt = $this->conn->prepare($sql);
 		$result = $stmt->execute();
 		if (!$result) {
-			$response['result'] = $stmt->errorInfo();
+			$response['error'] = $stmt->errorInfo();
 			return $response;
 		}
 		// $result = $stmt->fetall;
@@ -83,9 +83,8 @@ class GetAllQuestionsService
 
 
 
-		return $response;
-		$result = $stmt->fetchAll();
 		$response['result'] = $result;
+		return $response;
 
 		$questions = $this->toJSON($result);
 

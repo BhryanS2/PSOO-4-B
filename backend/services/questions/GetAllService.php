@@ -53,7 +53,11 @@ class GetAllQuestionsService
 	public function execute(array $data)
 	{
 
-		$response = array();
+		$response = array(
+			"status" => false,
+			"message" => "Get all questions failed"
+		);
+
 
 		$sql = "SELECT questions.id,
     questions.content,
@@ -65,21 +69,18 @@ class GetAllQuestionsService
     alternatives.isCorrect,
     alternatives.id as alternative_id
     FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
-
+		$response['sql'] = $sql;
 		$stmt = $this->conn->prepare($sql);
+		$response['stmt'] = $stmt;
 		$stmt->execute();
+		return $response;
 		$result = $stmt->fetchAll();
-		return $this->toJSON($result);
 		return $result;
 		$questions = $this->toJSON($result);
 
 		if (count($data) > 0) {
 			$questions = $this->filter_questions($questions, $data);
 		}
-
-		$response['status'] = false;
-		$response['message'] = "Get all questions failed";
-
 		if (count($questions) > 0) {
 			$response['status'] = true;
 			$response['message'] = "Get all questions success";

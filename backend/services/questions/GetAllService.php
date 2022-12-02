@@ -7,14 +7,6 @@ class GetAllQuestionsService
 		$this->conn = newConnection();
 	}
 
-	private function prepareSQL($sql)
-	{
-		$stmt = $this->conn->prepare($sql);
-		$stmt->execute();
-		$result = $stmt->fetchAll();
-		return $result;
-	}
-
 	private function toJSON($result)
 	{
 		$questions = array();
@@ -74,7 +66,10 @@ class GetAllQuestionsService
     alternatives.id as alternative_id
     FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
 
-		$result = $this->prepareSQL($sql);
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		return $this->toJSON($result);
 		return $result;
 		$questions = $this->toJSON($result);
 

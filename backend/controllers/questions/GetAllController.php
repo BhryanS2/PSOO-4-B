@@ -3,9 +3,9 @@ class GetAllQuestionsController
 {
 	public function __construct()
 	{
-		include_once "services/questions/GetAllService.php";
+		require "services/questions/GetAllService.php";
 	}
-	public function handle(array $data)
+	public function handle()
 	{
 		$filtersAccepted = [
 			"id",
@@ -14,7 +14,7 @@ class GetAllQuestionsController
 			"lessonId",
 			"userId"
 		];
-		$filters = array_intersect_key($data, array_flip($filtersAccepted));
+		// $filters = array_intersect_key($data, array_flip($filtersAccepted));
 
 		$service = new GetAllQuestionsService();
 		$result = $service->execute();
@@ -22,7 +22,7 @@ class GetAllQuestionsController
 		$result = array(
 			...$result,
 			"filters_accepted" => $filtersAccepted,
-			"filters" => $filters
+			// "filters" => $filters
 		);
 		return $result;
 	}

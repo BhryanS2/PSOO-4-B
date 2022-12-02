@@ -72,6 +72,7 @@ class GetAllQuestionsService
 		$stmt = $this->conn->prepare($sql);
 		$result = $stmt->execute();
 		if (!$result) {
+			$response['result'] = $stmt->errorInfo();
 			return $response;
 		}
 		// $result = $stmt->fetall;

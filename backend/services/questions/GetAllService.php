@@ -7,22 +7,16 @@ class GetAllQuestionsService
 		$this->conn = $conn;
 	}
 
-	public function execute($filters = [])
+	private function prepareSQL($sql)
 	{
-		$response = array();
-		$sql = "SELECT questions.id,
-    questions.content,
-    questions.lesson_id,
-    questions.created_at,
-    questions.updated_at,
-		questions.explanation,
-    alternatives.content as alternative_content,
-    alternatives.isCorrect,
-    alternatives.id as alternative_id
-    FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->execute();
 		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		return $result;
+	}
+
+	private function toJSON($result)
+	{
 		$questions = array();
 		foreach ($result as $row) {
 			$questionId = $row['id'];
@@ -43,24 +37,48 @@ class GetAllQuestionsService
 				"id" => $row['alternative_id']
 			));
 		}
-		return $questions;
-		$questionsValues = array_values($questions);
-		$questionsFltered = array();
-		foreach ($questionsValues as $question) {
-			$isFiltered = false;
+		return array_values($questions);
+	}
+
+	private function filter_questions($questions, $filters)
+	{
+		$filtered_questions = array();
+		foreach ($questions as $question) {
+			$add = true;
 			foreach ($filters as $key => $value) {
 				if ($question[$key] != $value) {
-					$isFiltered = true;
+					$add = false;
 					break;
 				}
 			}
-			if (!$isFiltered) {
-				array_push($questionsFltered, $question);
+			if ($add) {
+				array_push($filtered_questions, $question);
 			}
+		}
+		return $filtered_questions;
+	}
+
+	public function execute($filters = [])
+	{
+		$response = array();
+		$sql = "SELECT questions.id,
+    questions.content,
+    questions.lesson_id,
+    questions.created_at,
+    questions.updated_at,
+		questions.explanation,
+    alternatives.content as alternative_content,
+    alternatives.isCorrect,
+    alternatives.id as alternative_id
+    FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
+		$result = $this->prepareSQL($sql);
+		$questions = $this->toJSON($result);
+		if (count($filters) > 0) {
+			$questions = $this->filter_questions($questions, $filters);
 		}
 		$response['status'] = true;
 		$response['message'] = "Get all questions success";
-		$response['data'] = $questionsFltered;
+		$response['data'] = $questions;
 
 		return $response;
 	}

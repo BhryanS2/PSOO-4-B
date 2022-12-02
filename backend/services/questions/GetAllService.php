@@ -60,6 +60,11 @@ class GetAllQuestionsService
 
 	public function execute(array $data)
 	{
+		return array(
+			"status" => true,
+			"message" => "Get all questions success",
+			"data" => "a"
+		);
 		$response = array();
 		$sql = "SELECT questions.id,
     questions.content,

@@ -17,11 +17,6 @@ class GetAllQuestionsController
 		$filters = array_intersect_key($data, array_flip($filtersAccepted));
 
 		$service = new GetAllQuestionsService();
-		return array(
-			"status" => true,
-			"message" => "Get all questions success",
-			"data" => 'no data'
-		);
 		$result = $service->execute($filters);
 		$result = array(
 			...$result,

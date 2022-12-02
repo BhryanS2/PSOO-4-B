@@ -13,7 +13,7 @@ class GetAllService
 		$stmt = $this->conn->prepare($sql);
 		$stmt->execute();
 		$result = $stmt->get_result();
-		$result = $result->fetch_assoc();
+		$result = $result->fetch_all(MYSQLI_ASSOC);
 		$reponse["status"] = false;
 		$reponse["message"] = "Get all users failed";
 		if (count($result) > 0) {

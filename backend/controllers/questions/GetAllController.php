@@ -16,14 +16,6 @@ class GetAllQuestionsController
 		];
 		$filters = array_intersect_key($data, array_flip($filtersAccepted));
 
-
-		return array(
-			"status" => false,
-			"message" => "Get all questions failed",
-			"filters_accepted" => $filtersAccepted,
-			"filters" => $filters
-		);
-
 		$service = new GetAllQuestionsService();
 		$result = $service->execute($filters);
 		$result = array(

@@ -71,6 +71,7 @@ class GetAllQuestionsService
     alternatives.isCorrect,
     alternatives.id as alternative_id
     FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
+		return $sql;
 		$result = $this->prepareSQL($sql);
 		$questions = $this->toJSON($result);
 		if (count($filters) > 0) {

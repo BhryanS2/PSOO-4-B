@@ -12,7 +12,8 @@ class GetAllService
 		$sql = "SELECT id, name, email FROM users";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->execute();
-		$result = $stmt->fetchAll();
+		$result = $stmt->get_result();
+		$result = $result->fetch_assoc();
 		$reponse["status"] = false;
 		$reponse["message"] = "Get all users failed";
 		if (count($result) > 0) {

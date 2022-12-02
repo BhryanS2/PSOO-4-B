@@ -69,10 +69,19 @@ class GetAllQuestionsService
     alternatives.isCorrect,
     alternatives.id as alternative_id
     FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
-		$response['sql'] = $sql;
 		$stmt = $this->conn->prepare($sql);
 		$result = $stmt->execute();
-		$response['result'] = $result;
+		if (!$result) {
+			return $response;
+		}
+		// $result = $stmt->fetall;
+		// $conn = new PDO("mysql:host=;dbname=",'', '');
+		// $stmt = $conn->prepare("SELECT * FROM questions");
+		// $stmt->execute();
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 		return $response;
 		$result = $stmt->fetchAll();
 		$response['result'] = $result;

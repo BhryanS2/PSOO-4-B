@@ -70,7 +70,7 @@ class GetAllQuestionsService
 		}
 
 		$result = $stmt->get_result();
-		// $result = $result->fetch_assoc();
+		$result = $result->fetch_all(MYSQLI_ASSOC);
 
 		$response['sql'] = $sql;
 		$response['result'] = $result;

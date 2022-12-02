@@ -4,7 +4,7 @@ class DeleteService
   public function __construct()
   {
     require_once "connection.php";
-    $this->conn = $conn;
+    $this->conn = newConnection();
   }
   public function execute($id)
   {

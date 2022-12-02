@@ -3,7 +3,7 @@ class GetAllQuestionsController
 {
 	public function __construct()
 	{
-		require "services/questions/GetAllService.php";
+		include_once "services/questions/GetAllService.php";
 	}
 	public function handle(array $data)
 	{
@@ -18,6 +18,7 @@ class GetAllQuestionsController
 
 		$service = new GetAllQuestionsService();
 		$result = $service->execute();
+
 		$result = array(
 			...$result,
 			"filters_accepted" => $filtersAccepted,

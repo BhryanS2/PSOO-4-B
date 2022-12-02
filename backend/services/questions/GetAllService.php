@@ -43,6 +43,7 @@ class GetAllQuestionsService
 				"id" => $row['alternative_id']
 			));
 		}
+		return $questions;
 		$questionsValues = array_values($questions);
 		$questionsFltered = array();
 		foreach ($questionsValues as $question) {

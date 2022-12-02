@@ -89,6 +89,7 @@ $merge = array_merge($post, $get);
 if ($input) {
 	$merge = array_merge($merge, $input);
 }
+
 $data = $merge;
 $controller = $route;
 
@@ -96,11 +97,14 @@ if (!array_key_exists($controller, $routes)) {
 	return404();
 	return;
 }
+
 $controller = $routes[$controller];
+
 if (!array_key_exists($method, $controller)) {
 	return405($method);
 	return;
 }
+
 $controller = $controller[$method];
 $controller = new $controller();
 $result = $controller->handle($data);

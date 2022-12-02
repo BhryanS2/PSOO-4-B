@@ -65,7 +65,7 @@ class Logger {
 export class API {
   constructor() {
     this.logger = new Logger();
-    this.url = "../backend/index.php?route="; // Trocar quando subir para o infinity
+    this.url = "./backend/index.php?route="; // Trocar quando subir para o infinity
     this.user = {};
     this.routes = {
       login: {

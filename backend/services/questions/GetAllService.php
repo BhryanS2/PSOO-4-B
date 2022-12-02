@@ -58,7 +58,7 @@ class GetAllQuestionsService
 		return $filtered_questions;
 	}
 
-	public function execute($filters = [])
+	public function execute(array $data)
 	{
 		$response = array();
 		$sql = "SELECT questions.id,
@@ -74,8 +74,8 @@ class GetAllQuestionsService
 		return $sql;
 		$result = $this->prepareSQL($sql);
 		$questions = $this->toJSON($result);
-		if (count($filters) > 0) {
-			$questions = $this->filter_questions($questions, $filters);
+		if (count($data) > 0) {
+			$questions = $this->filter_questions($questions, $data);
 		}
 		$response['status'] = false;
 		$response['message'] = "Get all questions failed";

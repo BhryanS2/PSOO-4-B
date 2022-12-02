@@ -81,6 +81,7 @@ class GetAllQuestionsService
 		$result = $stmt->get_result();
 		$fetch_all = $result->fetch_all(MYSQLI_ASSOC);
 		$response['result'] = $result;
+		$response['fetch_all'] = $fetch_all;
 		// $response['questions'] = $questions;
 		return $response;
 

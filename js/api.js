@@ -82,7 +82,7 @@ export class API {
       },
       getAll: {
         method: "GET",
-        route: `${this.url}getall&method=GET`,
+        route: `${this.url}getallmethod=GET`,
       },
       question: {
         method: {
@@ -163,7 +163,7 @@ export class API {
     return data;
   }
   async getAllQuestions() {
-    const res = await fetch(`${this.routes.questions.route}&method=GET`, {
+    const res = await fetch(`${this.routes.questions.route}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -175,7 +175,7 @@ export class API {
   }
 
   async getAllAnswers() {
-    const res = await fetch(`${this.routes.answers.route}&method=GET`, {
+    const res = await fetch(`${this.routes.answers.route}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -187,7 +187,7 @@ export class API {
   }
 
   async getAllLessons() {
-    const res = await fetch(`${this.routes.lessons.route}&method=GET`, {
+    const res = await fetch(`${this.routes.lessons.route}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -198,21 +198,18 @@ export class API {
   }
 
   async getQuestion(id) {
-    const res = await fetch(
-      `${this.routes.question.route}&id=${id}&method=GET`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${this.routes.question.route}&id=${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     const data = await res.json();
     return data;
   }
 
   async getAnswer(id) {
-    const res = await fetch(`${this.routes.answer.route}&id=${id}&method=GET`, {
+    const res = await fetch(`${this.routes.answer.route}&id=${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -223,7 +220,7 @@ export class API {
   }
 
   async getLesson(id) {
-    const res = await fetch(`${this.routes.lesson.route}&id=${id}&method=GET`, {
+    const res = await fetch(`${this.routes.lesson.route}&id=${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

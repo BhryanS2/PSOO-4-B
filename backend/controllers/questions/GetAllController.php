@@ -3,7 +3,7 @@ class GetAllQuestionsController
 {
 	public function __construct()
 	{
-		// require "services/questions/GetAllService.php";
+		require "services/questions/GetAllService.php";
 	}
 	public function handle()
 	{
@@ -16,11 +16,12 @@ class GetAllQuestionsController
 		];
 		// $filters = array_intersect_key($data, array_flip($filtersAccepted));
 
-		// $service = new GetAllQuestionsService();
-		// $result = $service->execute();
+		$service = new GetAllQuestionsService();
+		return $service;
+		$result = $service->execute();
 
 		$result = array(
-			// ...$result,
+			...$result,
 			"filters_accepted" => $filtersAccepted,
 			// "filters" => $filters
 		);

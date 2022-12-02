@@ -76,9 +76,14 @@ class GetAllQuestionsService
 		if (count($filters) > 0) {
 			$questions = $this->filter_questions($questions, $filters);
 		}
-		$response['status'] = true;
-		$response['message'] = "Get all questions success";
-		$response['data'] = $questions;
+		$response['status'] = false;
+		$response['message'] = "Get all questions failed";
+
+		if (count($questions) > 0) {
+			$response['status'] = true;
+			$response['message'] = "Get all questions success";
+			$response['data'] = $questions;
+		}
 
 		return $response;
 	}

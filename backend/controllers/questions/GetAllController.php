@@ -22,6 +22,11 @@ class GetAllQuestionsController
 		}
 		$service = new GetAllQuestionsService();
 		$result = $service->execute($filters);
+		$result = array(
+			...$result,
+			"filters_accepted" => $filtersAccepted,
+			"filters" => $filters
+		);
 		return $result;
 	}
 }

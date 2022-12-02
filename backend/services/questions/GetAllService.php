@@ -60,37 +60,47 @@ class GetAllQuestionsService
 
 	public function execute()
 	{
-		return array(
-			"status" => true,
-			"message" => "Get all questions success",
-			"data" => "a"
-		);
-		$response = array();
-		$sql = "SELECT questions.id,
-    questions.content,
-    questions.lesson_id,
-    questions.created_at,
-    questions.updated_at,
-		questions.explanation,
-    alternatives.content as alternative_content,
-    alternatives.isCorrect,
-    alternatives.id as alternative_id
-    FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
-		return $sql;
-		$result = $this->prepareSQL($sql);
-		$questions = $this->toJSON($result);
-		// if (count($data) > 0) {
-		// 	$questions = $this->filter_questions($questions, $data);
-		// }
-		$response['status'] = false;
-		$response['message'] = "Get all questions failed";
 
-		if (count($questions) > 0) {
-			$response['status'] = true;
-			$response['message'] = "Get all questions success";
-			$response['data'] = $questions;
+		$reponse = array();
+		$sql = "SELECT id, name, email FROM users";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		$reponse["status"] = false;
+		$reponse["message"] = "Get all users failed";
+		if (count($result) > 0) {
+			$reponse["status"] = true;
+			$reponse["message"] = "Get all users success";
+			$reponse["data"] = $result;
 		}
+		return $reponse;
 
-		return $response;
+		// $response = array();
+		// $sql = "SELECT questions.id,
+		// questions.content,
+		// questions.lesson_id,
+		// questions.created_at,
+		// questions.updated_at,
+		// questions.explanation,
+		// alternatives.content as alternative_content,
+		// alternatives.isCorrect,
+		// alternatives.id as alternative_id
+		// FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
+		// return $sql;
+		// $result = $this->prepareSQL($sql);
+		// $questions = $this->toJSON($result);
+		// // if (count($data) > 0) {
+		// // 	$questions = $this->filter_questions($questions, $data);
+		// // }
+		// $response['status'] = false;
+		// $response['message'] = "Get all questions failed";
+
+		// if (count($questions) > 0) {
+		// 	$response['status'] = true;
+		// 	$response['message'] = "Get all questions success";
+		// 	$response['data'] = $questions;
+		// }
+
+		// return $response;
 	}
 }

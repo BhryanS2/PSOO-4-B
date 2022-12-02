@@ -75,14 +75,7 @@ class GetAllQuestionsService
 			$response['error'] = $stmt->errorInfo();
 			return $response;
 		}
-		// $result = $stmt->fetall;
-		// $conn = new PDO("mysql:host=;dbname=",'', '');
-		// $stmt = $conn->prepare("SELECT * FROM questions");
-		// $stmt->execute();
 		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
-
 		$response['result'] = $result;
 		return $response;
 

@@ -5,10 +5,8 @@ class SendAnserController
 	{
 		require_once "services/userAnswer/send.php";
 	}
-	public function handle()
+	public function handle(array $data)
 	{
-		$json = file_get_contents('php://input');
-		$data = json_decode($json, true);
 		$userId = isset($data['userId']) ? $data['userId'] : null;
 		$questionId = isset($data['questionId']) ? $data['questionId'] : null;
 		$alternativeId = isset($data['alternativeId']) ? $data['alternativeId'] : null;
@@ -24,14 +22,10 @@ class SendAnserController
 			if ($alternativeId == null) {
 				array_push($fieldsRequired, "alternativeId");
 			}
-			http_response_code(400);
-			echo json_encode(array("status" => false, "message" => "Send answer failed", "fieldsRequired" => $fieldsRequired));
-			return json_encode(array("status" => false, "message" => "Send answer failed", "fieldsRequired" => $fieldsRequired));
+			return array("status" => false, "message" => "Send answer failed", "fieldsRequired" => $fieldsRequired);
 		}
 		$service = new SendAnswerService();
 		$result = $service->execute($userId, $questionId, $alternativeId);
-		echo json_encode($result);
-		return json_encode($result);
-		return json_encode($result);
+		return $result;
 	}
 }

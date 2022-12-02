@@ -1,22 +1,22 @@
 <?php
-require "controllers/user/LoginController.php";
-require "controllers/user/SignupController.php";
-require "controllers/user/DeleteUserController.php";
-require "controllers/user/GetAllController.php";
+include_once "controllers/user/LoginController.php";
+include_once "controllers/user/SignupController.php";
+include_once "controllers/user/DeleteUserController.php";
+include_once "controllers/user/GetAllController.php";
 
-require "controllers/lessons/GetAllController.php";
-require "controllers/lessons/GetController.php";
-require "controllers/lessons/RegisterController.php";
-require "controllers/lessons/DeleteController.php";
+include_once "controllers/lessons/GetAllController.php";
+include_once "controllers/lessons/GetController.php";
+include_once "controllers/lessons/RegisterController.php";
+include_once "controllers/lessons/DeleteController.php";
 
-require "controllers/questions/DeleteQuestionController.php";
-require "controllers/questions/GetAllController.php";
-require "controllers/questions/getQuestionController.php";
-require "controllers/questions/RegisterQuestionController.php";
+include_once "controllers/questions/DeleteQuestionController.php";
+include_once "controllers/questions/GetAllController.php";
+include_once "controllers/questions/getQuestionController.php";
+include_once "controllers/questions/RegisterQuestionController.php";
 
-require "controllers/userAnswer/GetAllController.php";
-require "controllers/userAnswer/GetController.php";
-require "controllers/userAnswer/RegisterController.php";
+include_once "controllers/userAnswer/GetAllController.php";
+include_once "controllers/userAnswer/GetController.php";
+include_once "controllers/userAnswer/RegisterController.php";
 
 $routes = [
 	"login" => [
@@ -60,61 +60,53 @@ $routes = [
 
 function return404()
 {
-	// http_response_code(404);
+	http_response_code(404);
 	echo json_encode(array("status" => false, "message" => "404 Not Found"));
 }
 
 function return405($method = "GET")
 {
-	// http_response_code(405);
+	http_response_code(405);
 	echo json_encode(array("status" => false, "message" => "Error 405, $method method not allowed"));
 }
 
-function main()
-{
-	header("Access-Control-Allow-Origin: *");
-	header("Access-Control-Allow-Headers: *");
-	header("Content-Type: application/json; charset=UTF-8");
-	header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS");
-	header("HTTP/2 200 OK");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS");
+header("HTTP/2 200 OK");
 
-	global $routes;
-	$route = isset($_GET['route']) ? $_GET['route'] : '';
-	$method = isset($_GET['method']) ? $_GET['method'] : "GET";
+// global $routes;
+$route = isset($_GET['route']) ? $_GET['route'] : '';
+$method = $_SERVER['REQUEST_METHOD'];
+$input = json_decode(file_get_contents('php://input'), true);
+$post = $_POST;
+$get = $_GET;
 
-	$controller = $route;
+$merge = array_merge($post, $get);
 
-	// $uri = explode("?", $uri)[0];
-	// $uri = explode("/", $uri);
-	// $uri = array_filter($uri);
-	// $uri = array_values($uri);
-	// $uri = implode("/", $uri);
-
-	// $uri = explode("?", $uri);
-	// $uri = $uri[1];
-	// $uri = explode("&", $uri);
-	// $uri = array_filter($uri);
-	// $uri = array_values($uri);
-	// $uri = implode("/", $uri);
-	// $uri = explode("=", $uri);
-	// $uri = $uri[1];
-	// print_r($uri);
-	// $controller = $uri;
-
-	if (!array_key_exists($controller, $routes)) {
-		return404();
-		return;
-	}
-	$controller = $routes[$controller];
-	if (!array_key_exists($method, $controller)) {
-		return405($method);
-		return;
-	}
-	$controller = $controller[$method];
-	$controller = new $controller();
-	$controller->handle();
+# merge all
+if ($input) {
+	$merge = array_merge($merge, $input);
 }
+$data = $merge;
+$controller = $route;
 
-main();
+if (!array_key_exists($controller, $routes)) {
+	return404();
+	return;
+}
+$controller = $routes[$controller];
+if (!array_key_exists($method, $controller)) {
+	return405($method);
+	return;
+}
+$controller = $controller[$method];
+$controller = new $controller();
+$result = $controller->handle($data);
+echo json_encode($result);
+// }
+
+// main();
 
 //  php -S localhost:3000

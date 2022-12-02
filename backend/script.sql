@@ -27,6 +27,7 @@ create table if not exists questions (
   id int auto_increment primary key,
   content text not null,
   lesson_id int not null,
+  explanation text not null,
   created_at timestamp default current_timestamp,
   updated_at timestamp default current_timestamp on update current_timestamp
 ) charset = utf8 collate = utf8_general_ci engine = innodb;
@@ -100,15 +101,17 @@ set
   );
 
 INSERT INTO
-  `questions` (`content`, `lesson_id`)
+  `questions` (`content`, `lesson_id`, `explanation`)
 VALUES
   (
     'Um segmento de reta está dividido em duas partes na proporção áurea quando o todo está para uma das partes na mesma razão em que essa parte está para a outra. Essa constante de proporcionalidade é comumente representada pela letra grega φ, e seu valor é dado pela solução positiva da equação φ2 = φ + 1. Assim como a potência φ2 , as potências superiores de φ podem ser expressas da forma aφ + b, em que a e b são inteiros positivos, como apresentado no quadro.\r\nA potência φ = 7, escrita na forma aφ + b (a e b são inteiros positivos), é',
-    @fisica_id
+    @fisica_id,
+    'Explicação não disponível'
   ),
   (
     'A soma dos ângulos internos de um polígono convexo é igual a',
-    @matematica_id
+    @matematica_id,
+    'Explicação não disponível'
   );
 
 INSERT INTO

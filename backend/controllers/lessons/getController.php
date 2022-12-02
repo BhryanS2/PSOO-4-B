@@ -5,17 +5,14 @@ class GetLessonController
 	{
 		require "services/lesson/getLesson.php";
 	}
-	public function handle()
+	public function handle(array $data)
 	{
-		$id = isset($_GET['id']) ? $_GET['id'] : null;
+		$id = isset($data['id']) ? $data['id'] : null;
 		if (!$id) {
-			http_response_code(400);
-			echo json_encode(array("status" => false, "message" => "Get lesson failed", "fieldsRequired" => ["id"]));
-			return json_encode(array("status" => false, "message" => "Get lesson failed", "fieldsRequired" => ["id"]));
+			return array("status" => false, "message" => "Get lesson failed", "fieldsRequired" => ["id"]);
 		}
 		$service = new GetLessonService();
 		$result = $service->execute($id);
-		echo json_encode($result);
-		return json_encode($result);
+		return $result;
 	}
 }

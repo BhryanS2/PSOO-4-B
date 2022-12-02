@@ -5,10 +5,8 @@ class RegisterQuestionController
 	{
 		require_once "services/questions/register.php";
 	}
-	public function handle()
+	public function handle(array $data)
 	{
-		$json = file_get_contents('php://input');
-		$data = json_decode($json, true);
 		$content = isset($data['content']) ? $data['content'] : null;
 		$userId = isset($data['userId']) ? $data['userId'] : null;
 		$lessonId = isset($data['lessonId']) ? $data['lessonId'] : null;
@@ -28,13 +26,10 @@ class RegisterQuestionController
 			if ($alternatives == null) {
 				array_push($fieldsRequired, "alternatives");
 			}
-			http_response_code(400);
-			echo json_encode(array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired));
-			return json_encode(array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired));
+			return array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired);
 		}
 		$service = new RegisterQuestionService();
 		$result = $service->execute($content, $userId, $lessonId, $alternatives);
-		echo json_encode($result);
-		return json_encode($result);
+		return $result;
 	}
 }

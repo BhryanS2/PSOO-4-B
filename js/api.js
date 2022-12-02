@@ -1,6 +1,71 @@
+class Logger {
+  constructor() {
+    this.log = console.log;
+    this.error = console.error;
+  }
+
+  getMessage(message) {
+    if (typeof message === "string") {
+      return message;
+    }
+    if (message instanceof Error) {
+      return message.message;
+    }
+
+    if (message instanceof Object) {
+      function recursive(obj) {
+        for (let key in obj) {
+          if (obj[key] instanceof Object) {
+            recursive(obj[key]);
+          } else {
+            obj[key] = obj[key].toString();
+          }
+        }
+        return obj;
+      }
+
+      return JSON.stringify(recursive(message));
+    }
+
+    return message;
+  }
+
+  log(message) {
+    const date = new Date();
+    const msg = this.getMessage(message);
+
+    this.log(
+      `%c ${date.toLocaleString()} %c ${msg}`,
+      "color: #9E9E9E; font-weight: 700;",
+      "color: #212121; font-weight: 700;"
+    );
+  }
+
+  error(message) {
+    const date = new Date();
+    const msg = this.getMessage(message);
+    this.error(
+      `%c ${date.toLocaleString()} %c ${msg}`,
+      "color: #f00; font-weight: 700;",
+      "color: #f68f,f; font-weight: 700;"
+    );
+  }
+
+  info(message) {
+    const date = new Date();
+    const msg = this.getMessage(message);
+    this.log(
+      `%c ${date.toLocaleString()} %c ${msg}`,
+      "color: #00f; font-weight: 700;",
+      "color: #68f; font-weight: 700;"
+    );
+  }
+}
+
 export class API {
   constructor() {
-    this.url = "./backend/index.php?route="; // Trocar quando subir para o infinity
+    this.logger = new Logger();
+    this.url = "../backend/index.php?route="; // Trocar quando subir para o infinity
     this.user = {};
     this.routes = {
       login: {
@@ -69,6 +134,7 @@ export class API {
       cors: "no-cors",
     });
     const data = await res.json();
+    this.logger.info(data);
     if (data.status) {
       this.setUser(data.data);
       return data;
@@ -89,6 +155,7 @@ export class API {
       cors: "no-cors",
     });
     const data = await res.json();
+    this.logger.info(data);
     if (data.status) {
       this.setUser(data.data);
       return data;
@@ -103,7 +170,7 @@ export class API {
       },
     });
     const data = await res.json();
-    console.log(data);
+    this.logger.info(data);
     return data.data;
   }
 
@@ -115,6 +182,7 @@ export class API {
       },
     });
     const data = await res.json();
+    this.logger.info(data);
     return data;
   }
 

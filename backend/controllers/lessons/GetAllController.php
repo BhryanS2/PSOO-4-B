@@ -9,7 +9,6 @@ class GetAllLessonsController
 	{
 		$service = new GetAllLessonService();
 		$result = $service->execute();
-		echo json_encode($result);
-		return json_encode($result);
+		return $result;
 	}
 }

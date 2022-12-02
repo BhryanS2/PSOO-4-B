@@ -155,7 +155,7 @@
         }
         const res = await api.login(data);
 
-        if (!res.status) {
+        if (!res["status"]) {
           alert(res.message);
         }
         userLogged();

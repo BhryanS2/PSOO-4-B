@@ -106,7 +106,7 @@
 
       <div class="explanation">
         <b>Explicação</b>
-        <p>Explicação não disponível</p>
+        <p class="explanation-item">Explicação não disponível</p>
       </div>
 
       <div class="buttons">
@@ -137,28 +137,6 @@
         api.signOut();
         window.location.href = "index.html";
       }
-
-      // function clearQuestion() {
-      //   const question = document.querySelector(".question");
-      //   question.innerText = "";
-      //   const answers = document.querySelector(".answers");
-      //   answers.innerHTML = "";
-      // }
-
-      // function nextQuestion() {
-      //   clearQuestion();
-      //   clearAllAnswers();
-      //   const questionCurrent = questions[currentQuestionPosition];
-      //   console.log("Current", questionCurrent);
-      //   const nextQuestionPosition = currentQuestionPosition + 1;
-      //   if (nextQuestionPosition >= sizeQuestions) {
-      //     currentQuestionPosition = 0;
-      //   } else {
-      //     currentQuestionPosition = nextQuestionPosition;
-      //   }
-      //   const question = questions[currentQuestionPosition];
-      //   renderQuestion(question);
-      // }
 
       function replaceUserNames() {
         const user = api.getUser();
@@ -217,7 +195,8 @@
           randomQuestion.id,
           randomQuestion.content,
           randomQuestion.alternatives,
-          randomQuestion.lessonId
+          randomQuestion.lessonId,
+          randomQuestion.explanation
         );
 
         answerButton.addEventListener("click", () => {

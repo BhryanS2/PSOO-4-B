@@ -8,6 +8,7 @@ export class Question {
     this.answer = answer;
     this.lesson = lesson;
     this.selected = -1;
+    this.explanation = "Nenhuma explicação disponível";
   }
 
   getElements() {
@@ -128,12 +129,19 @@ export class Question {
     });
   }
 
+  renderExplanation() {
+    const { explanation } = this.getElements();
+    const explanationItem = explanation.querySelector(".explanation-item");
+    explanationItem.textContent = this.explanation;
+  }
+
   renderQuestion() {
     this.clearElements();
     this.alterTextDefault();
     const { question } = this.getElements();
     question.innerHTML = this.question;
     this.renderAnswers();
+    this.renderExplanation();
   }
 
   alterTextDefault() {

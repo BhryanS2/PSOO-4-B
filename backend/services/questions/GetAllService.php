@@ -70,7 +70,7 @@ class GetAllQuestionsService
     alternatives.id as alternative_id
     FROM questions
 		INNER JOIN alternatives ON questions.id = alternatives.question_id";
-
+		echo "sql: $sql <br>";
 		$stmt = $this->conn->prepare($sql);
 		$result = $stmt->execute();
 
@@ -79,7 +79,9 @@ class GetAllQuestionsService
 			return $response;
 		}
 
+
 		$result = $stmt->get_result();
+		echo "result: $result <br>";
 
 		if (!$result) {
 			$response['error'] = $this->conn->error;
@@ -87,6 +89,8 @@ class GetAllQuestionsService
 		}
 
 		$result = $result->fetch_all(MYSQLI_ASSOC);
+		print_r($result);
+		echo "<br>";
 
 		if (count($result) <= 0) {
 			$response['message'] = "No questions found";
@@ -94,7 +98,9 @@ class GetAllQuestionsService
 		}
 
 		$questions = $this->toJSON($result);
-
+		echo "questions: ";
+		print_r($questions);
+		echo "<br>";
 		if (count($data) > 0) {
 			$questions = $this->filter_questions($questions, $data);
 		}

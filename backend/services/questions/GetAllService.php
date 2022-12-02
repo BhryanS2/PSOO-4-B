@@ -71,8 +71,8 @@ class GetAllQuestionsService
     FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
 		$response['sql'] = $sql;
 		$stmt = $this->conn->prepare($sql);
-		$response['stmt'] = $stmt;
 		$stmt->execute();
+		$response['stmt'] = $stmt;
 		return $response;
 		$result = $stmt->fetchAll();
 		$response['result'] = $result;

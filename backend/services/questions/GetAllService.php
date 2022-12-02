@@ -73,9 +73,9 @@ class GetAllQuestionsService
 		$stmt = $this->conn->prepare($sql);
 		$response['stmt'] = $stmt;
 		$stmt->execute();
+		return $response;
 		$result = $stmt->fetchAll();
 		$response['result'] = $result;
-		return $response;
 
 		$questions = $this->toJSON($result);
 

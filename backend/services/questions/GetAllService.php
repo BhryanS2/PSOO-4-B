@@ -80,9 +80,8 @@ class GetAllQuestionsService
 		}
 		$result = $stmt->get_result();
 		$fetch_all = $result->fetch_all(MYSQLI_ASSOC);
-		$questions = $this->toJSON($fetch_all);
 		$response['result'] = $result;
-		$response['questions'] = $questions;
+		// $response['questions'] = $questions;
 		return $response;
 
 		$questions = $this->toJSON($result);

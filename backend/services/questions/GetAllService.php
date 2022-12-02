@@ -75,32 +75,32 @@ class GetAllQuestionsService
 		}
 		return $reponse;
 
-		// $response = array();
-		// $sql = "SELECT questions.id,
-		// questions.content,
-		// questions.lesson_id,
-		// questions.created_at,
-		// questions.updated_at,
-		// questions.explanation,
-		// alternatives.content as alternative_content,
-		// alternatives.isCorrect,
-		// alternatives.id as alternative_id
-		// FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
-		// return $sql;
-		// $result = $this->prepareSQL($sql);
-		// $questions = $this->toJSON($result);
-		// // if (count($data) > 0) {
-		// // 	$questions = $this->filter_questions($questions, $data);
-		// // }
-		// $response['status'] = false;
-		// $response['message'] = "Get all questions failed";
-
-		// if (count($questions) > 0) {
-		// 	$response['status'] = true;
-		// 	$response['message'] = "Get all questions success";
-		// 	$response['data'] = $questions;
+		$response = array();
+		$sql = "SELECT questions.id,
+    questions.content,
+    questions.lesson_id,
+    questions.created_at,
+    questions.updated_at,
+		questions.explanation,
+    alternatives.content as alternative_content,
+    alternatives.isCorrect,
+    alternatives.id as alternative_id
+    FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
+		return $sql;
+		$result = $this->prepareSQL($sql);
+		$questions = $this->toJSON($result);
+		// if (count($data) > 0) {
+		// 	$questions = $this->filter_questions($questions, $data);
 		// }
+		$response['status'] = false;
+		$response['message'] = "Get all questions failed";
 
-		// return $response;
+		if (count($questions) > 0) {
+			$response['status'] = true;
+			$response['message'] = "Get all questions success";
+			$response['data'] = $questions;
+		}
+
+		return $response;
 	}
 }

@@ -95,10 +95,10 @@ class GetAllQuestionsService
 
 		$questions = $this->toJSON($result);
 
-
 		if (count($data) > 0) {
 			$questions = $this->filter_questions($questions, $data);
 		}
+
 		$response['status'] = true;
 		$response['message'] = "Get all questions success";
 		$response['data'] = $questions;

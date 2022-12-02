@@ -73,9 +73,10 @@ class GetAllQuestionsService
 		$stmt = $this->conn->prepare($sql);
 		$response['stmt'] = $stmt;
 		$stmt->execute();
-		return $response;
 		$result = $stmt->fetchAll();
-		return $result;
+		$response['result'] = $result;
+		return $response;
+
 		$questions = $this->toJSON($result);
 
 		if (count($data) > 0) {
@@ -86,7 +87,5 @@ class GetAllQuestionsService
 			$response['message'] = "Get all questions success";
 			$response['data'] = $questions;
 		}
-
-		return $response;
 	}
 }

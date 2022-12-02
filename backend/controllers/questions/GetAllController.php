@@ -19,13 +19,6 @@ class GetAllQuestionsController
 		$service = new GetAllQuestionsService();
 		$result = $service->execute($filters);
 
-		if (count($result) > 0) {
-			return $result;
-		}
-
-		return array(
-			"status" => false,
-			"message" => "No questions found"
-		);
+		return $result;
 	}
 }

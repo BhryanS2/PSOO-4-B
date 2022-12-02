@@ -154,10 +154,11 @@ export class API {
       }),
       cors: "no-cors",
     });
+
     const data = await res.json();
     this.logger.info(data);
     if (data.status) {
-      this.setUser(data.data);
+      await this.login({ email, password });
       return data;
     }
     return data;

@@ -5,7 +5,7 @@ class GetAllQuestionsController
 	{
 		require "services/questions/GetAllService.php";
 	}
-	public function handle()
+	public function handle(array $data)
 	{
 		$filtersAccepted = [
 			"id",
@@ -16,8 +16,8 @@ class GetAllQuestionsController
 		];
 		$filters = array();
 		foreach ($filtersAccepted as $filter) {
-			if (isset($_GET[$filter])) {
-				$filters[$filter] = $_GET[$filter];
+			if (isset($data[$filter])) {
+				$filters[$filter] = $data[$filter];
 			}
 		}
 		$service = new GetAllQuestionsService();

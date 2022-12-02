@@ -71,12 +71,18 @@ class GetAllQuestionsService
     FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
 		$stmt = $this->conn->prepare($sql);
 		$result = $stmt->execute();
+		// $conn = new mysqli('', '', '', '');
+		// $stmt = $conn->prepare($sql);
+		// $result = $stmt->execute();
 		if (!$result) {
-			$response['error'] = $stmt->errorInfo();
+			$response['error'] = $this->conn->error;
 			return $response;
 		}
-		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$result = $stmt->get_result();
+		$fetch_all = $result->fetch_all(MYSQLI_ASSOC);
+		$questions = $this->toJSON($fetch_all);
 		$response['result'] = $result;
+		$response['questions'] = $questions;
 		return $response;
 
 		$questions = $this->toJSON($result);

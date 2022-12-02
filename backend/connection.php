@@ -12,15 +12,13 @@ if ($_SERVER['SERVER_NAME'] != 'localhost') {
 	$dbName = "epiz_33063653_bimestral";
 }
 
-$conn = new PDO("mysql:host=$server;dbname=$dbName", $user, $password);
-$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
 function newConnection()
 {
 	global $server, $user, $password, $dbName;
-	$conn = new PDO("mysql:host=$server;dbname=$dbName", $user, $password);
-	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+	$conn = new mysqli($server, $user, $password, $dbName);
+
 	return $conn;
 }
+
+$conn = newConnection();

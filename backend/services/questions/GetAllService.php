@@ -64,11 +64,8 @@ class GetAllQuestionsService
     questions.lesson_id,
     questions.created_at,
     questions.updated_at,
-		questions.explanation,
-    alternatives.content as alternative_content,
-    alternatives.isCorrect,
-    alternatives.id as alternative_id
-    FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id";
+		questions.explanation
+    FROM questions";
 		$stmt = $this->conn->prepare($sql);
 		$result = $stmt->execute();
 		// $conn = new mysqli('', '', '', '');

@@ -3,7 +3,7 @@ class SendAnswerService
 {
 	public function __construct()
 	{
-		require "connection.php";
+		require_once "connection.php";
 		$this->conn = $conn;
 	}
 

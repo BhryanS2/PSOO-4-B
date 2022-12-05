@@ -30,10 +30,7 @@ class RegisterAlunoController
 			if ($quartoId == null) {
 				array_push($fieldsinclude_onced, "quartoId");
 			}
-
-			http_response_code(400);
-			echo json_encode(array("status" => false, "message" => "Register failed", "fieldsinclude_onced" => $fieldsinclude_onced));
-			return;
+			return array("status" => false, "message" => "Register failed", "fieldsinclude_onced" => $fieldsinclude_onced);
 		}
 
 		$service = new RegisterService();

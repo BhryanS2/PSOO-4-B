@@ -16,21 +16,21 @@ class RegisterQuartoController
 
 
 		if ($name === null || $piso === null || $leitos === null || $blocoId === null) {
-			$fieldsRequired = array();
+			$fieldsrequire_onced = array();
 			if ($name == null) {
-				array_push($fieldsRequired, "name");
+				array_push($fieldsrequire_onced, "name");
 			}
 			if ($piso == null) {
-				array_push($fieldsRequired, "piso");
+				array_push($fieldsrequire_onced, "piso");
 			}
 			if ($leitos == null) {
-				array_push($fieldsRequired, "leitos");
+				array_push($fieldsrequire_onced, "leitos");
 			}
 			if ($blocoId == null) {
-				array_push($fieldsRequired, "blocoId");
+				array_push($fieldsrequire_onced, "blocoId");
 			}
 
-			return array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired);
+			return array("status" => false, "message" => "Register failed", "fieldsrequire_onced" => $fieldsrequire_onced);
 		}
 		$service = new RegisterQuartoService();
 		$result = $service->execute($name, $piso, $leitos, $blocoId);

@@ -16,23 +16,23 @@ class RegisterAlunoController
 		$quartoId = isset($data['quartoId']) ? $data['quartoId'] : null;
 
 		if ($name == null || $leitoOcupado == null || $blocoId == null || $quartoId == null) {
-			$fieldsRequired = array();
+			$fieldsrequire_onced = array();
 			if ($name == null) {
-				array_push($fieldsRequired, "name");
+				array_push($fieldsrequire_onced, "name");
 			}
 			if ($leitoOcupado == null) {
-				array_push($fieldsRequired, "leito");
+				array_push($fieldsrequire_onced, "leito");
 			}
 			if ($blocoId == null) {
-				array_push($fieldsRequired, "blocoId");
+				array_push($fieldsrequire_onced, "blocoId");
 			}
 
 			if ($quartoId == null) {
-				array_push($fieldsRequired, "quartoId");
+				array_push($fieldsrequire_onced, "quartoId");
 			}
 
 			http_response_code(400);
-			echo json_encode(array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired));
+			echo json_encode(array("status" => false, "message" => "Register failed", "fieldsrequire_onced" => $fieldsrequire_onced));
 			return;
 		}
 

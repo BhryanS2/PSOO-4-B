@@ -9,7 +9,7 @@ class DeleteQuartoController
   {
     $id = isset($_GET['id']) ? $_GET['id'] : null;
     if (!$id) {
-      return array("status" => false, "message" => "Delete failed", "fieldsRequired" => ["id"]);
+      return array("status" => false, "message" => "Delete failed", "fieldsrequire_onced" => ["id"]);
     }
 
     $service = new DeleteService();

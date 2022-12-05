@@ -3,7 +3,7 @@ class GetAllQuartosController
 {
   public function __construct()
   {
-    require "services/quartos/GetAllService.php";
+    require_once "services/quartos/GetAllService.php";
   }
   public function handle()
   {

@@ -6,8 +6,8 @@ class GetAllInfos
 
   public function __construct()
   {
-    require "connection.php";
-    require "utils/responsePattern.php";
+    require_once "connection.php";
+    require_once "utils/responsePattern.php";
     $this->conn = new Database();
     $this->response = new Response(false, "Get all infos failed");
   }

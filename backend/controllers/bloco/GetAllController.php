@@ -3,7 +3,7 @@ class GetAllBlocosController
 {
   public function __construct()
   {
-    require "services/bloco/GetAll.php";
+    require_once "services/bloco/GetAll.php";
   }
   public function handle()
   {

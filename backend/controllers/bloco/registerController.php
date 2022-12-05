@@ -14,18 +14,18 @@ class RegisterBlocoController
 		$quartos = isset($data['quartos']) ? $data['quartos'] : null;
 
 		if ($name === null || $pisos === null || $quartos === null) {
-			$fieldsRequired = array();
+			$fieldsrequire_onced = array();
 			if ($name == null) {
-				array_push($fieldsRequired, "name");
+				array_push($fieldsrequire_onced, "name");
 			}
 			if ($pisos == null) {
-				array_push($fieldsRequired, "pisos");
+				array_push($fieldsrequire_onced, "pisos");
 			}
 			if ($quartos == null) {
-				array_push($fieldsRequired, "quartos");
-				array_push($fieldsRequired, "** Deve ser enviado quantos quartos tem em cada piso **");
+				array_push($fieldsrequire_onced, "quartos");
+				array_push($fieldsrequire_onced, "** Deve ser enviado quantos quartos tem em cada piso **");
 			}
-			return array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired);
+			return array("status" => false, "message" => "Register failed", "fieldsrequire_onced" => $fieldsrequire_onced);
 		}
 		$service = new RegisterBlocoService();
 		$result = $service->execute($name, $pisos, $quartos);

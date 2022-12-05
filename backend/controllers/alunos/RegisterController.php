@@ -38,7 +38,7 @@ class RegisterAlunoController
 
 		$service = new RegisterService();
 		$result = $service->execute($name, $leitoOcupado, $blocoId, $quartoId);
-		echo json_encode($result);
+		return $result;
 		return;
 	}
 }

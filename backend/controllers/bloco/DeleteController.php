@@ -15,7 +15,6 @@ class DeleteBlocoController
     }
     $service = new DeleteBlocoService();
     $result = $service->execute($id);
-    echo json_encode($result);
-    return;
+    return $result;
   }
 }

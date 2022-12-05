@@ -15,6 +15,7 @@ include_once "controllers/quartos/registerQuartoController.php";
 
 include_once "controllers/getAll.php";
 
+include_once "./utils/responsePattern.php";
 require_once "connection.php";
 
 $routes = [
@@ -41,7 +42,7 @@ $routes = [
 		"POST" => "RegisterQuartoController",
 		"DELETE" => "DeleteQuartoController"
 	],
-	"getInfos" => [
+	"getinfos" => [
 		"GET" => "GetAllInfosController"
 	]
 ];

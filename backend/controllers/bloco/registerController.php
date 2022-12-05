@@ -25,13 +25,10 @@ class RegisterBlocoController
 				array_push($fieldsRequired, "quartos");
 				array_push($fieldsRequired, "** Deve ser enviado quantos quartos tem em cada piso **");
 			}
-			http_response_code(400);
-			echo json_encode(array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired));
-			return;
+			return array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired);
 		}
 		$service = new RegisterBlocoService();
 		$result = $service->execute($name, $pisos, $quartos);
-		echo json_encode($result);
 		return $result;
 	}
 }

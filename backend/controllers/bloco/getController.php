@@ -15,7 +15,6 @@ class GetBlocoController
 		}
 		$service = new GetBlocoService();
 		$result = $service->execute($id);
-		echo json_encode($result);
 		return $result;
 	}
 }

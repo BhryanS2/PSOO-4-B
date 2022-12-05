@@ -9,7 +9,6 @@ class GetAllBlocosController
   {
     $service = new GetAllBlocosService();
     $result = $service->execute();
-    echo json_encode($result);
-    return;
+    return $result;
   }
 }

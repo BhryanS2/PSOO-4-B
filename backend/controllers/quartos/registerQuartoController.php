@@ -30,13 +30,10 @@ class RegisterQuartoController
 				array_push($fieldsRequired, "blocoId");
 			}
 
-			http_response_code(400);
-			echo json_encode(array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired));
-			return;
+			return array("status" => false, "message" => "Register failed", "fieldsRequired" => $fieldsRequired);
 		}
 		$service = new RegisterQuartoService();
 		$result = $service->execute($name, $piso, $leitos, $blocoId);
-		echo json_encode($result);
-		return;
+		return $result;
 	}
 }

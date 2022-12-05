@@ -17,15 +17,6 @@ include_once "controllers/getAll.php";
 
 require_once "connection.php";
 
-
-$method = $_SERVER['REQUEST_METHOD'];
-$uri = $_SERVER['REQUEST_URI'];
-$uri = explode("?", $uri)[0];
-$uri = explode("/", $uri);
-$uri = array_filter($uri);
-$uri = array_values($uri);
-$uri = implode("/", $uri);
-
 $routes = [
 	"alunos" => [
 		"GET" => "GetAllController"
@@ -90,6 +81,8 @@ if ($input) {
 
 $data = $merge;
 $controller = $route;
+
+print_r($routes[$controller][$method]);
 
 if (!array_key_exists($controller, $routes)) {
 	return404();

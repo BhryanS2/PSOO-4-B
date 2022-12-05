@@ -1,10 +1,9 @@
-
 name: Subimit files in infinityfree
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
   workflow_dispatch:
 jobs:
@@ -20,6 +19,6 @@ jobs:
           server: ftpupload.net
           username: ${{ secrets.username }}
           password: ${{ secrets.password }}
-          local-dir: ./Backend/
+          local-dir: ./backend/
           server-dir: /htdocs/
-          dangerous-clean-slate: false
+          dangerous-clean-slate: true

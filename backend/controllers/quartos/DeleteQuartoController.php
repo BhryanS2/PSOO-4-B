@@ -3,13 +3,13 @@ class DeleteQuartoController
 {
   public function __construct()
   {
-    require_once "services/quartos/Delete.php";
+    include_once "services/quartos/Delete.php";
   }
   public function handle()
   {
     $id = isset($_GET['id']) ? $_GET['id'] : null;
     if (!$id) {
-      return array("status" => false, "message" => "Delete failed", "fieldsrequire_onced" => ["id"]);
+      return array("status" => false, "message" => "Delete failed", "fieldsinclude_onced" => ["id"]);
     }
 
     $service = new DeleteService();

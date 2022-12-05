@@ -6,15 +6,15 @@ class RegisterService
 
   public function __construct()
   {
-    require_once "connection.php";
-    require_once "utils/responsePattern.php";
+    include_once "connection.php";
+    include_once "utils/responsePattern.php";
     $this->conn = new Database();
     $this->response = new Response(false, "Register aluno failed");
   }
 
   private function existeVaga($quartoId)
   {
-    $sql = "SELECT * FROM alunos 
+    $sql = "SELECT * FROM alunos
       inner join quartos on alunos.quartoId = quartos.id
       where quartos.id = :quartoId
     ";
@@ -38,7 +38,7 @@ class RegisterService
 
   private function leitoEstaOcupado($leito, $quartoId)
   {
-    $sql = "SELECT * FROM alunos 
+    $sql = "SELECT * FROM alunos
       inner join quartos on alunos.quartoId = quartos.id
       where quartos.id = :quartoId and alunos.leito = :leito
     ";

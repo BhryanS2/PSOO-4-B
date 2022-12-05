@@ -6,8 +6,8 @@ class GetAllService
 
   public function __construct()
   {
-    require_once "connection.php";
-    require_once "utils/responsePattern.php";
+    include_once "connection.php";
+    include_once "utils/responsePattern.php";
     $this->conn = new Database();
     $this->response = new Response(false, "Get all quartos failed");
   }

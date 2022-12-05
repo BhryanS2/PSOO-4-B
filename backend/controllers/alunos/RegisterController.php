@@ -3,7 +3,7 @@ class RegisterAlunoController
 {
 	public function __construct()
 	{
-		require_once "services/aluno/Register.php";
+		include_once "services/aluno/Register.php";
 	}
 	public function handle()
 	{
@@ -16,23 +16,23 @@ class RegisterAlunoController
 		$quartoId = isset($data['quartoId']) ? $data['quartoId'] : null;
 
 		if ($name == null || $leitoOcupado == null || $blocoId == null || $quartoId == null) {
-			$fieldsrequire_onced = array();
+			$fieldsinclude_onced = array();
 			if ($name == null) {
-				array_push($fieldsrequire_onced, "name");
+				array_push($fieldsinclude_onced, "name");
 			}
 			if ($leitoOcupado == null) {
-				array_push($fieldsrequire_onced, "leito");
+				array_push($fieldsinclude_onced, "leito");
 			}
 			if ($blocoId == null) {
-				array_push($fieldsrequire_onced, "blocoId");
+				array_push($fieldsinclude_onced, "blocoId");
 			}
 
 			if ($quartoId == null) {
-				array_push($fieldsrequire_onced, "quartoId");
+				array_push($fieldsinclude_onced, "quartoId");
 			}
 
 			http_response_code(400);
-			echo json_encode(array("status" => false, "message" => "Register failed", "fieldsrequire_onced" => $fieldsrequire_onced));
+			echo json_encode(array("status" => false, "message" => "Register failed", "fieldsinclude_onced" => $fieldsinclude_onced));
 			return;
 		}
 

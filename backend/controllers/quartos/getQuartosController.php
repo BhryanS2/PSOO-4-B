@@ -3,14 +3,14 @@ class GetQuartoController
 {
 	public function __construct()
 	{
-		require_once "services/quartos/getQuarto.php";
+		include_once "services/quartos/getQuarto.php";
 	}
 	public function handle()
 	{
 		// get id from /quartos/:id
 		$id = isset($_GET['id']) ? $_GET['id'] : null;
 		if (!$id) {
-			return array("status" => false, "message" => "Get quarto failed", "fieldsrequire_onced" => ["id"]);
+			return array("status" => false, "message" => "Get quarto failed", "fieldsinclude_onced" => ["id"]);
 		}
 
 		$service = new GetQuartoService();

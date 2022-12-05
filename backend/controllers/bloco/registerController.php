@@ -3,7 +3,7 @@ class RegisterBlocoController
 {
 	public function __construct()
 	{
-		require_once "services/bloco/register.php";
+		include_once "services/bloco/register.php";
 	}
 	public function handle()
 	{
@@ -14,18 +14,18 @@ class RegisterBlocoController
 		$quartos = isset($data['quartos']) ? $data['quartos'] : null;
 
 		if ($name === null || $pisos === null || $quartos === null) {
-			$fieldsrequire_onced = array();
+			$fieldsinclude_onced = array();
 			if ($name == null) {
-				array_push($fieldsrequire_onced, "name");
+				array_push($fieldsinclude_onced, "name");
 			}
 			if ($pisos == null) {
-				array_push($fieldsrequire_onced, "pisos");
+				array_push($fieldsinclude_onced, "pisos");
 			}
 			if ($quartos == null) {
-				array_push($fieldsrequire_onced, "quartos");
-				array_push($fieldsrequire_onced, "** Deve ser enviado quantos quartos tem em cada piso **");
+				array_push($fieldsinclude_onced, "quartos");
+				array_push($fieldsinclude_onced, "** Deve ser enviado quantos quartos tem em cada piso **");
 			}
-			return array("status" => false, "message" => "Register failed", "fieldsrequire_onced" => $fieldsrequire_onced);
+			return array("status" => false, "message" => "Register failed", "fieldsinclude_onced" => $fieldsinclude_onced);
 		}
 		$service = new RegisterBlocoService();
 		$result = $service->execute($name, $pisos, $quartos);

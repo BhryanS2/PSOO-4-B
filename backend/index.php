@@ -15,8 +15,8 @@ include_once "controllers/quartos/registerQuartoController.php";
 
 include_once "controllers/getAll.php";
 
-include_once "./utils/responsePattern.php";
-require_once "connection.php";
+include_once "utils/responsePattern.php";
+include_once "connection.php";
 
 $routes = [
 	"alunos" => [
@@ -83,7 +83,7 @@ if ($input) {
 $data = $merge;
 $controller = $route;
 
-print_r($routes[$controller][$method]);
+// print_r($routes[$controller][$method]);
 
 if (!array_key_exists($controller, $routes)) {
 	return404();

@@ -3,7 +3,7 @@ class RegisterQuartoController
 {
 	public function __construct()
 	{
-		require_once "services/quartos/register.php";
+		include_once "services/quartos/register.php";
 	}
 	public function handle()
 	{
@@ -16,21 +16,21 @@ class RegisterQuartoController
 
 
 		if ($name === null || $piso === null || $leitos === null || $blocoId === null) {
-			$fieldsrequire_onced = array();
+			$fieldsinclude_onced = array();
 			if ($name == null) {
-				array_push($fieldsrequire_onced, "name");
+				array_push($fieldsinclude_onced, "name");
 			}
 			if ($piso == null) {
-				array_push($fieldsrequire_onced, "piso");
+				array_push($fieldsinclude_onced, "piso");
 			}
 			if ($leitos == null) {
-				array_push($fieldsrequire_onced, "leitos");
+				array_push($fieldsinclude_onced, "leitos");
 			}
 			if ($blocoId == null) {
-				array_push($fieldsrequire_onced, "blocoId");
+				array_push($fieldsinclude_onced, "blocoId");
 			}
 
-			return array("status" => false, "message" => "Register failed", "fieldsrequire_onced" => $fieldsrequire_onced);
+			return array("status" => false, "message" => "Register failed", "fieldsinclude_onced" => $fieldsinclude_onced);
 		}
 		$service = new RegisterQuartoService();
 		$result = $service->execute($name, $piso, $leitos, $blocoId);

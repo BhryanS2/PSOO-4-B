@@ -3,7 +3,7 @@ class GetAllController
 {
   public function __construct()
   {
-    require_once "services/aluno/GetAllService.php";
+    include_once "services/aluno/GetAllService.php";
   }
   public function handle()
   {

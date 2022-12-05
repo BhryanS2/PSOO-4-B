@@ -1,4 +1,8 @@
 <?php
+
+include_once "connection.php";
+include_once "utils/responsePattern.php";
+
 class RegisterService
 {
 	private Database $conn;
@@ -6,8 +10,6 @@ class RegisterService
 
 	public function __construct()
 	{
-		include_once "connection.php";
-		include_once "utils/responsePattern.php";
 		$this->conn = new Database();
 		$this->response = new Response(false, "Register aluno failed");
 	}

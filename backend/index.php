@@ -15,8 +15,8 @@ include_once "controllers/quartos/registerQuartoController.php";
 
 include_once "controllers/getAll.php";
 
-include_once "utils/responsePattern.php";
-include_once "connection.php";
+// include_once "utils/responsePattern.php";
+// include_once "connection.php";
 
 $routes = [
 	"alunos" => [

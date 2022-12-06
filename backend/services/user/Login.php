@@ -19,11 +19,12 @@ class LoginService
 	public function execute($email, $password)
 	{
 		$reponse = array();
-		$sql = "SELECT * FROM users WHERE email = :email";
+		$sql = "SELECT * FROM users WHERE email = ?";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bindParam(":email", $email);
+		$stmt->bind_param("s", $email);
 		$stmt->execute();
-		$result = $stmt->fetchAll();
+		$result = $stmt->get_result();
+		$result = $result->fetch_all(MYSQLI_ASSOC);
 		if (count($result) > 0) {
 			$user = $result[0];
 			$userPassword = $user["password"];
@@ -33,7 +34,8 @@ class LoginService
 				$userNoPassword = [
 					"id" => $user["id"],
 					"name" => $user["name"],
-					"email" => $user["email"]
+					"email" => $user["email"],
+					"role" => $user["role"],
 				];
 				$reponse["data"] = $userNoPassword;
 				return $reponse;

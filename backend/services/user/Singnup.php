@@ -8,11 +8,12 @@ class SingupService
 	}
 	public function existsUser($email)
 	{
-		$sql = "SELECT * FROM users WHERE email = :email";
+		$sql = "SELECT * FROM users WHERE email = ?";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bindParam(":email", $email);
+		$stmt->bind_param("s", $email);
 		$stmt->execute();
-		$result = $stmt->fetchAll();
+		$result = $stmt->get_result();
+		$result = $result->fetch_all(MYSQLI_ASSOC);
 		if (count($result) > 0) {
 			return true;
 		}
@@ -25,11 +26,9 @@ class SingupService
 			return array("status" => false, "message" => "User already exists");
 		}
 		$hash = md5($password);
-		$sql = "INSERT INTO users (email, password, name) VALUES (:email, :password, :name)";
+		$sql = "INSERT INTO users (email, password, name) VALUES (?, ?, ?)";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bindParam(":email", $email);
-		$stmt->bindParam(":password", $hash);
-		$stmt->bindParam(":name", $name);
+		$stmt->bind_param("sss", $email, $hash, $name);
 		$stmt->execute();
 
 		$response["status"] = true;

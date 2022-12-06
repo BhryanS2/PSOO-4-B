@@ -19,6 +19,7 @@ create table if not exists users (
   name varchar(255) not null,
   email varchar(255) not null,
   password varchar(255) not null,
+  role varchar(255) not null,
   created_at timestamp default current_timestamp,
   updated_at timestamp default current_timestamp on update current_timestamp
 ) charset = utf8 collate = utf8_general_ci engine = innodb;
@@ -138,6 +139,7 @@ INSERT INTO
     `name`,
     `email`,
     `password`,
+    `role`,
     `created_at`,
     `updated_at`
   )
@@ -146,7 +148,8 @@ VALUES
     1,
     'bhryan',
     'bhryanstepenhen@gmail.com',
-    'da4e97125c0d3e8c40c7124daf94e0e7',
+    MD5('123'),
+    'admin',
     '2022-10-29 16:21:42',
     '2022-10-29 16:21:42'
   );

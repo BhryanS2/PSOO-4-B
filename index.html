@@ -127,6 +127,11 @@
       addEventListener("DOMContentLoaded", () => {
         const user = localStorage.getItem("user");
         if (user) {
+          const userJosn = JSON.parse(user);
+          if (userJosn["role"] === "admin") {
+            window.location.href = "./admin.php";
+            return;
+          }
           window.location.href = "./questoes.html";
         }
       });

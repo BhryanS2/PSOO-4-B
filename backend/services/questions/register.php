@@ -1,16 +1,16 @@
 <?php
 class RegisterQuestionService
 {
-  public function __construct()
-  {
-    require_once "connection.php";
-    $this->conn = newConnection();
-  }
+	public function __construct()
+	{
+		require_once "connection.php";
+		$this->conn = newConnection();
+	}
 
-  public function execute($content, $userId, $lessonId, $alternatives)
-  {
-    $reponse = array();
-    /*
+	public function execute($content, $lessonId, $alternatives)
+	{
+		$response = array();
+		/*
     $alternatives = [
       [
         "content" => "alternativa 1",
@@ -30,30 +30,28 @@ class RegisterQuestionService
       ]
     ];
     */
-    $sql = "INSERT INTO questions (content, user_id, lesson_id) VALUES (:content, :user_id, :lesson_id)";
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bindParam(":content", $content);
-    $stmt->bindParam(":user_id", $userId);
-    $stmt->bindParam(":lesson_id", $lessonId);
-    $stmt->execute();
-    $questionId = $this->conn->lastInsertId();
-    $sql = "INSERT INTO alternatives (content, isCorrect, question_id) VALUES (:content, :isCorrect, :question_id)";
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bindParam(":question_id", $questionId);
-    foreach ($alternatives as $alternative) {
-      $content = $alternative['content'];
-      $isCorrect = $alternative['isCorrect'];
-      $stmt->bindParam(":content", $content);
-      $stmt->bindParam(":isCorrect", $isCorrect);
-      $stmt->execute();
-    }
-    $reponse['status'] = true;
-    $reponse['message'] = "Register success";
-    $response['data'] = array(
-      "questionId" => $questionId,
-      "content" => $content,
-      "lessonId" => $lessonId,
-    );
-    return $reponse;
-  }
+		$sql = "INSERT INTO questions (content, lesson_id) VALUES (?,?)";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("si", $content, $lessonId);
+		$stmt->execute();
+
+		$questionId = $this->conn->insert_id;
+		$sql = "INSERT INTO alternatives (content, isCorrect, question_id) VALUES (?, ?, ?)";
+
+		foreach ($alternatives as $alternative) {
+			$content = $alternative['content'];
+			$isCorrect = $alternative['isCorrect'];
+			$stmt = $this->conn->prepare($sql);
+			$stmt->bind_param("sii", $content, $isCorrect, $questionId);
+			$stmt->execute();
+		}
+		$response['status'] = true;
+		$response['message'] = "Register success";
+		$response['data'] = array(
+			"questionId" => $questionId,
+			"content" => $content,
+			"lessonId" => $lessonId,
+		);
+		return $response;
+	}
 }

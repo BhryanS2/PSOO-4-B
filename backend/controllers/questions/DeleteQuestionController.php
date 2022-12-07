@@ -12,7 +12,7 @@ class DeleteQuestionController
 			return array("status" => false, "message" => "Delete failed", "fieldsRequired" => ["id"]);
 		}
 
-		$service = new DeleteService();
+		$service = new DeleteQuestionService();
 		$result = $service->execute($id);
 		return $result;
 	}

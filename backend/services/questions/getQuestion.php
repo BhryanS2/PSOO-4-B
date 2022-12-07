@@ -8,7 +8,7 @@ class GetQuestionService
 	}
 	public function execute($id)
 	{
-		$reponse = array();
+		$response = array();
 		$sql = "SELECT questions.id,
 		questions.content, questions.lesson_id,
 		questions.explanation as explanation,
@@ -16,13 +16,14 @@ class GetQuestionService
 		questions.updated_at,
 		alternatives.content as alternative_content,
 		alternatives.isCorrect
-
 		FROM questions INNER JOIN alternatives ON questions.id = alternatives.question_id
-    where questions.id = :id";
+    where questions.id = ?";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bindParam(":id", $id);
+		$stmt->bind_param("i", $id);
 		$stmt->execute();
-		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$result = $stmt->get_result();
+		$result = $result->fetch_all(MYSQLI_ASSOC);
 		$alternatives = array();
 		foreach ($result as $row) {
 			array_push($alternatives, array(
@@ -36,16 +37,15 @@ class GetQuestionService
 			"id" => $questionData['id'],
 			"content" => $questionData['content'],
 			"lessonId" => $questionData['lesson_id'],
-			"userId" => $questionData['user_id'],
 			"createdAt" => $questionData['created_at'],
 			'explanation' => $questionData['explanation'],
 			"updatedAt" => $questionData['updated_at'],
 			"alternatives" => $alternatives
 		);
-		$reponse['status'] = true;
-		$reponse['message'] = "Get question success";
-		$reponse['data'] = $question;
+		$response['status'] = true;
+		$response['message'] = "Get question success";
+		$response['data'] = $question;
 
-		return $reponse;
+		return $response;
 	}
 }

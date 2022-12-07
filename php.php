@@ -10,8 +10,12 @@ require "./backend/controllers/user/GetAllController.php";
 print_r($conn);
 $sql = "SELECT * FROM `users`";
 $statement = $conn->prepare($sql);
+
 $statement->execute();
-$users = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+$result = $stmt->get_result();
+$users = $result->fetch_all(MYSQLI_ASSOC);
+
 ?>
 
 <h1>users</h1>

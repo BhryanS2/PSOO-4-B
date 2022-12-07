@@ -13,7 +13,7 @@ if ($_SERVER['SERVER_NAME'] != 'localhost') {
 }
 
 
-function newConnection()
+function newConnection(): mysqli
 {
 	global $server, $user, $password, $dbName;
 	$conn = new mysqli($server, $user, $password, $dbName);

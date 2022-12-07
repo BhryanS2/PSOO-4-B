@@ -71,115 +71,115 @@ class GetAllQuestionsService
     FROM questions
 		INNER JOIN alternatives ON questions.id = alternatives.question_id";
 
-		$array = array(
-			"status" => true,
-			"message" => "Get all questions success",
-			"data" => [
-				[
-					"id" => 1,
-					"content" => "Um segmento de reta está dividido em duas partes na proporção áurea quando o todo está para uma das partes na mesma razão em que essa parte está para a outra. Essa constante de proporcionalidade é comumente representada pela letra grega φ, e seu valor é dado pela solução positiva da equação φ2 = φ + 1. Assim como a potência φ2 , as potências superiores de φ podem ser expressas da forma aφ + b, em que a e b são inteiros positivos, como apresentado no quadro. A potência φ = 7, escrita na forma aφ + b (a e b são inteiros positivos), é",
-					"lessonId" => 8,
-					"createdAt" => "2022-11-30 08:53:14",
-					"updatedAt" => "2022-11-30 08:53:14",
-					"explanation" => "Explicação não disponível",
-					"alternatives" => [
-						[
-							"content" => "5φ + 3",
-							"isCorrect" => 0,
-							"id" => 1
-						],
-						[
-							"content" => "7φ + 2",
-							"isCorrect" => 0,
-							"id" => 2
-						],
-						[
-							"content" => "9φ + 6",
-							"isCorrect" => 0,
-							"id" => 3
-						],
-						[
-							"content" => "11φ + 7",
-							"isCorrect" => 0,
-							"id" => 4
-						],
-						[
-							"content" => "13φ + 8",
-							"isCorrect" => 1,
-							"id" => 5
-						]
-					]
-				],
-				[
-					"id" => 2,
-					"content" => "A soma dos ângulos internos de um polígono convexo é igual a",
-					"lessonId" => 10,
-					"createdAt" => "2022-11-30 08:53:14",
-					"updatedAt" => "2022-11-30 08:53:14",
-					"explanation" => "Explicação não disponível",
-					"alternatives" => [
-						[
-							"content" => "180°",
-							"isCorrect" => 0,
-							"id" => 6
-						],
-						[
-							"content" => "360°",
-							"isCorrect" => 0,
-							"id" => 7
-						],
-						[
-							"content" => "540°",
-							"isCorrect" => 0,
-							"id" => 8
-						],
-						[
-							"content" => "720°",
-							"isCorrect" => 1,
-							"id" => 9
-						],
-						[
-							"content" => "900°",
-							"isCorrect" => 0,
-							"id" => 10
-						]
-					]
-				]
+		// $array = array(
+		// 	"status" => true,
+		// 	"message" => "Get all questions success",
+		// 	"data" => [
+		// 		[
+		// 			"id" => 1,
+		// 			"content" => "Um segmento de reta está dividido em duas partes na proporção áurea quando o todo está para uma das partes na mesma razão em que essa parte está para a outra. Essa constante de proporcionalidade é comumente representada pela letra grega φ, e seu valor é dado pela solução positiva da equação φ2 = φ + 1. Assim como a potência φ2 , as potências superiores de φ podem ser expressas da forma aφ + b, em que a e b são inteiros positivos, como apresentado no quadro. A potência φ = 7, escrita na forma aφ + b (a e b são inteiros positivos), é",
+		// 			"lessonId" => 8,
+		// 			"createdAt" => "2022-11-30 08:53:14",
+		// 			"updatedAt" => "2022-11-30 08:53:14",
+		// 			"explanation" => "Explicação não disponível",
+		// 			"alternatives" => [
+		// 				[
+		// 					"content" => "5φ + 3",
+		// 					"isCorrect" => 0,
+		// 					"id" => 1
+		// 				],
+		// 				[
+		// 					"content" => "7φ + 2",
+		// 					"isCorrect" => 0,
+		// 					"id" => 2
+		// 				],
+		// 				[
+		// 					"content" => "9φ + 6",
+		// 					"isCorrect" => 0,
+		// 					"id" => 3
+		// 				],
+		// 				[
+		// 					"content" => "11φ + 7",
+		// 					"isCorrect" => 0,
+		// 					"id" => 4
+		// 				],
+		// 				[
+		// 					"content" => "13φ + 8",
+		// 					"isCorrect" => 1,
+		// 					"id" => 5
+		// 				]
+		// 			]
+		// 		],
+		// 		[
+		// 			"id" => 2,
+		// 			"content" => "A soma dos ângulos internos de um polígono convexo é igual a",
+		// 			"lessonId" => 10,
+		// 			"createdAt" => "2022-11-30 08:53:14",
+		// 			"updatedAt" => "2022-11-30 08:53:14",
+		// 			"explanation" => "Explicação não disponível",
+		// 			"alternatives" => [
+		// 				[
+		// 					"content" => "180°",
+		// 					"isCorrect" => 0,
+		// 					"id" => 6
+		// 				],
+		// 				[
+		// 					"content" => "360°",
+		// 					"isCorrect" => 0,
+		// 					"id" => 7
+		// 				],
+		// 				[
+		// 					"content" => "540°",
+		// 					"isCorrect" => 0,
+		// 					"id" => 8
+		// 				],
+		// 				[
+		// 					"content" => "720°",
+		// 					"isCorrect" => 1,
+		// 					"id" => 9
+		// 				],
+		// 				[
+		// 					"content" => "900°",
+		// 					"isCorrect" => 0,
+		// 					"id" => 10
+		// 				]
+		// 			]
+		// 		]
 
-			]
-		);
-		return $array;
-		// $stmt = $this->conn->prepare($sql);
-		// $result = $stmt->execute();
+		// 	]
+		// );
+		// return $array;
+		$stmt = $this->conn->prepare($sql);
+		$result = $stmt->execute();
 
-		// if (!$result) {
-		// 	$response['error'] = $this->conn->error;
-		// 	return $response;
-		// }
+		if (!$result) {
+			$response['error'] = $this->conn->error;
+			return $response;
+		}
 
 
-		// $result = $stmt->get_result();
+		$result = $stmt->get_result();
 
-		// if (!$result) {
-		// 	$response['error'] = $this->conn->error;
-		// 	return $response;
-		// }
+		if (!$result) {
+			$response['error'] = $this->conn->error;
+			return $response;
+		}
 
-		// $result = $result->fetch_all(MYSQLI_ASSOC);
+		$result = $result->fetch_all(MYSQLI_ASSOC);
 
-		// if (count($result) <= 0) {
-		// 	$response['message'] = "No questions found";
-		// 	return $response;
-		// }
+		if (count($result) <= 0) {
+			$response['message'] = "No questions found";
+			return $response;
+		}
 
-		// $questions = $this->toJSON($result);
-		// if (count($data) > 0) {
-		// 	$questions = $this->filter_questions($questions, $data);
-		// }
+		$questions = $this->toJSON($result);
+		if (count($data) > 0) {
+			$questions = $this->filter_questions($questions, $data);
+		}
 
-		// $response['status'] = true;
-		// $response['message'] = "Get all questions success";
-		// $response['data'] = $questions;
-		// return $response;
+		$response['status'] = true;
+		$response['message'] = "Get all questions success";
+		$response['data'] = $questions;
+		return $response;
 	}
 }

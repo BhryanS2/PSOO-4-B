@@ -24,7 +24,7 @@ $routes = [
 	],
 	"aluno" => [
 		"POST" => "RegisterAlunoController",
-		"DELETE" => "DeleteAlunoController"
+		"DELETE" => "DeleteAlunoController",
 	],
 	"blocos" => [
 		"GET" => "GetAllBlocosController"

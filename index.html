@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alojamento</title>
+  </head>
+  <body>
+    <div>
+      <h1>Contagem de doados</h1>
+    </div>
+    <div class="count-blocos">
+      <h2>Blocos</h2>
+      <p>Quantidade de blocos: 0</p>
+    </div>
+
+    <div class="count-quartos-livres">
+      <h2>Quartos livres</h2>
+      <p>Quantidade de quartos livres: 0</p>
+    </div>
+
+    <div class="count-quartos-ocupados">
+      <h2>Quartos ocupados</h2>
+      <p>Quantidade de quartos ocupados: 0</p>
+    </div>
+
+    <div class="count-quartos">
+      <h2>Quartos</h2>
+      <p>Quantidade de quartos: 0</p>
+    </div>
+
+    <a href="./bloco.html">Cadastrar bloco</a>
+    <a href="./aluno.html">Cadastrar aluno</a>
+    <a href="./quarto.html">Cadastrar quarto</a>
+
+    <script>
+      const url = "http://localhost/Luisa/backend/index.php";
+      const blocos = document.querySelector(".count-blocos p");
+      const quartosLivres = document.querySelector(".count-quartos-livres p");
+      const quartosOcupados = document.querySelector(
+        ".count-quartos-ocupados p"
+      );
+
+      const quartos = document.querySelector(".count-quartos p");
+
+      fetch(`${url}?route=getinfos`)
+        .then((response) => response.json())
+        .then((data) => {
+          const dados = data.data;
+          let countBlocos = dados.length;
+          let countQuartosLivres = 0;
+          let countQuartosOcupados = 0;
+          let countQuartos = 0;
+          let countAlunos = 0;
+          let vagasPorQuarto = 0;
+          const maximoDeQuatosPorPiso = 12;
+
+          console.log(dados);
+          dados.forEach((bloco) => {
+            countQuartos += Number(bloco.pisos) * maximoDeQuatosPorPiso;
+            bloco.quartos.forEach((quarto) => {
+              if (quarto.alunos.length > 0) {
+                countQuartosOcupados++;
+                countAlunos += quarto.alunos.length;
+              }
+              vagasPorQuarto += Number(quarto.leitos);
+            });
+          });
+
+          blocos.innerHTML = `Quantidade de blocos: ${countBlocos}`;
+          quartosLivres.innerHTML = `Quantidade de quartos livres: ${
+            countQuartos - countQuartosOcupados
+          }`;
+          quartosOcupados.innerHTML = `Quantidade de quartos ocupados: ${countQuartosOcupados}`;
+          quartos.innerHTML = `Quantidade de quartos: ${countQuartos}`;
+        });
+    </script>
+  </body>
+</html>

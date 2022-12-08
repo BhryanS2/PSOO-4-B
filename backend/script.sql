@@ -146,8 +146,8 @@ INSERT INTO
 VALUES
   (
     1,
-    'bhryan',
-    'bhryanstepenhen@gmail.com',
+    'luisa',
+    'luisa@gmail.com',
     MD5('123'),
     'admin',
     '2022-10-29 16:21:42',

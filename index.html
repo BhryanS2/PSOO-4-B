@@ -138,7 +138,12 @@
 
       function userLogged() {
         const user = localStorage.getItem("user");
-        if (user) {
+        const userJson = JSON.parse(user);
+        if (userJson['name']) {
+          if (userJson['role'] === "admin") {
+            window.location.href = "./admin.php";
+            return;
+          }
           window.location.href = "./questoes.html";
         }
       }
